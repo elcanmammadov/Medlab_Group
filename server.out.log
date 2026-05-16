@@ -1,0 +1,244 @@
+Server running on port 5000
+Admin Panel: http://localhost:5000/admin
+API Base URL: http://localhost:5000/api
+MongoDB Connected: localhost
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[Multer] Processing file: 487871555_1118300843642986_7635659143495849015_n.jpg, Field: image, uploadFor: gallery
+[Multer] Using uploadFor override: uploads/gallery/
+[Multer] Saving to: C:\Users\N. Badalov\Desktop\Medlab Group\server\uploads\gallery\
+[GlobalLeaders] count: 0 []
+[BranchService Get] Branch: 69e6996c11eb112ec0713f92 Services count: 3 Data: [
+  {
+    "name": {
+      "az": "Ümumi Tıbbi Konsultasiya",
+      "ru": "Общая медицинская консультация",
+      "en": "General Medical Consultation"
+    },
+    "_id": "69e6996c11eb112ec0713f9b",
+    "branch": {
+      "name": {
+        "az": "Şamaxı Filialı",
+        "ru": "Шамахинский филиал",
+        "en": "Shamakhi Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f92"
+    },
+    "image": "/uploads/services/general.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.403Z",
+    "updatedAt": "2026-04-20T21:23:56.403Z"
+  },
+  {
+    "name": {
+      "az": "Kardiyologiya",
+      "ru": "Кардиология",
+      "en": "Cardiology"
+    },
+    "_id": "69e6996c11eb112ec0713f9c",
+    "branch": {
+      "name": {
+        "az": "Şamaxı Filialı",
+        "ru": "Шамахинский филиал",
+        "en": "Shamakhi Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f92"
+    },
+    "image": "/uploads/services/cardiology.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.403Z",
+    "updatedAt": "2026-04-20T21:23:56.403Z"
+  },
+  {
+    "name": {
+      "az": "Laboratoriya Testləri",
+      "ru": "Лабораторные тесты",
+      "en": "Laboratory Tests"
+    },
+    "_id": "69e6996c11eb112ec0713f9d",
+    "branch": {
+      "name": {
+        "az": "Şamaxı Filialı",
+        "ru": "Шамахинский филиал",
+        "en": "Shamakhi Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f92"
+    },
+    "image": "/uploads/services/lab.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.403Z",
+    "updatedAt": "2026-04-20T21:23:56.403Z"
+  }
+]
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[Multer] Processing file: iskender.webp, Field: photo, uploadFor: undefined
+[Multer] Saving to: C:\Users\N. Badalov\Desktop\Medlab Group\server\uploads\leadership\
+[CreateLeader] req.body: {"name":"İskender","surname":"Karaltı","position":{"az":"Baş Direktor","ru":"Генеральный директор","en":"CEO"},"bio":{"az":"","ru":"","en":""},"type":"company","companyId":"69e6996c11eb112ec0713f8f"}
+[GlobalLeaders] count: 0 []
+[BranchService Get] Branch: 69e6996c11eb112ec0713f94 Services count: 2 Data: [
+  {
+    "name": {
+      "az": "Qabaqcıl Diaqnostika",
+      "ru": "Передовая диагностика",
+      "en": "Advanced Diagnostics"
+    },
+    "_id": "69e6996c11eb112ec0713fa0",
+    "branch": {
+      "name": {
+        "az": "Mərkəz Filialı",
+        "ru": "Центральный филиал",
+        "en": "Center Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f94"
+    },
+    "image": "/uploads/services/diagnostics.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.404Z",
+    "updatedAt": "2026-04-20T21:23:56.404Z"
+  },
+  {
+    "name": {
+      "az": "Müalicə Proqramları",
+      "ru": "Лечебные программы",
+      "en": "Treatment Programs"
+    },
+    "_id": "69e6996c11eb112ec0713fa1",
+    "branch": {
+      "name": {
+        "az": "Mərkəz Filialı",
+        "ru": "Центральный филиал",
+        "en": "Center Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f94"
+    },
+    "image": "/uploads/services/treatment.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.404Z",
+    "updatedAt": "2026-04-20T21:23:56.404Z"
+  }
+]
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+Server running on port 5000
+Admin Panel: http://localhost:5000/admin
+API Base URL: http://localhost:5000/api
+MongoDB Connected: localhost
+[BranchService Get] Branch: 69e6996c11eb112ec0713f94 Services count: 2 Data: [
+  {
+    "name": {
+      "az": "Qabaqcıl Diaqnostika",
+      "ru": "Передовая диагностика",
+      "en": "Advanced Diagnostics"
+    },
+    "_id": "69e6996c11eb112ec0713fa0",
+    "branch": {
+      "name": {
+        "az": "Mərkəz Filialı",
+        "ru": "Центральный филиал",
+        "en": "Center Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f94"
+    },
+    "image": "/uploads/services/diagnostics.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.404Z",
+    "updatedAt": "2026-04-20T21:23:56.404Z"
+  },
+  {
+    "name": {
+      "az": "Müalicə Proqramları",
+      "ru": "Лечебные программы",
+      "en": "Treatment Programs"
+    },
+    "_id": "69e6996c11eb112ec0713fa1",
+    "branch": {
+      "name": {
+        "az": "Mərkəz Filialı",
+        "ru": "Центральный филиал",
+        "en": "Center Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f94"
+    },
+    "image": "/uploads/services/treatment.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.404Z",
+    "updatedAt": "2026-04-20T21:23:56.404Z"
+  }
+]
+[BranchService Get] Branch: 69e6996c11eb112ec0713f92 Services count: 3 Data: [
+  {
+    "name": {
+      "az": "Ümumi Tıbbi Konsultasiya",
+      "ru": "Общая медицинская консультация",
+      "en": "General Medical Consultation"
+    },
+    "_id": "69e6996c11eb112ec0713f9b",
+    "branch": {
+      "name": {
+        "az": "Şamaxı Filialı",
+        "ru": "Шамахинский филиал",
+        "en": "Shamakhi Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f92"
+    },
+    "image": "/uploads/services/general.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.403Z",
+    "updatedAt": "2026-04-20T21:23:56.403Z"
+  },
+  {
+    "name": {
+      "az": "Kardiyologiya",
+      "ru": "Кардиология",
+      "en": "Cardiology"
+    },
+    "_id": "69e6996c11eb112ec0713f9c",
+    "branch": {
+      "name": {
+        "az": "Şamaxı Filialı",
+        "ru": "Шамахинский филиал",
+        "en": "Shamakhi Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f92"
+    },
+    "image": "/uploads/services/cardiology.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.403Z",
+    "updatedAt": "2026-04-20T21:23:56.403Z"
+  },
+  {
+    "name": {
+      "az": "Laboratoriya Testləri",
+      "ru": "Лабораторные тесты",
+      "en": "Laboratory Tests"
+    },
+    "_id": "69e6996c11eb112ec0713f9d",
+    "branch": {
+      "name": {
+        "az": "Şamaxı Filialı",
+        "ru": "Шамахинский филиал",
+        "en": "Shamakhi Branch"
+      },
+      "_id": "69e6996c11eb112ec0713f92"
+    },
+    "image": "/uploads/services/lab.jpg",
+    "__v": 0,
+    "createdAt": "2026-04-20T21:23:56.403Z",
+    "updatedAt": "2026-04-20T21:23:56.403Z"
+  }
+]
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []
+[GlobalLeaders] count: 0 []

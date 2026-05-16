@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Rəhbərlik | Medlab Medical Group</title>
+    <meta name="description" content="Medlab Medical Group rəhbərlik heyəti. Azərbaycanda tibbi xidmətləri idarə edən peşəkar komanda ilə tanış olun." />
+    <meta name="keywords" content="Medlab rəhbərlik, tibbi qrup idarəçilik, baş həkim, CEO, Azərbaycan tibb" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Medlab Medical Group" />
+    <meta name="theme-color" content="#1E88E5" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Medlab Medical Group" />
+    <meta property="og:title" content="Rəhbərlik | Medlab Medical Group" />
+    <meta property="og:description" content="Medlab Medical Group-un peşəkar rəhbərlik heyəti ilə tanış olun." />
+    <meta property="og:image" content="https://medlabgroup.org/image/medlab-logo.png" />
+    <meta property="og:image:alt" content="Medlab Medical Group Rəhbərliyi" />
+    <meta property="og:url" content="https://medlabgroup.org/leadership.html" />
+    <meta property="og:locale" content="az_AZ" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rəhbərlik | Medlab Medical Group" />
+    <meta name="twitter:description" content="Medlab Medical Group-un peşəkar rəhbərlik heyəti." />
+    <meta name="twitter:image" content="https://medlabgroup.org/image/medlab-logo.png" />
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href="https://medlabgroup.org/leadership.html" />
+    <link rel="alternate" hreflang="az" href="https://medlabgroup.org/leadership.html" />
+    <link rel="alternate" hreflang="ru" href="https://medlabgroup.org/leadership.html?lang=ru" />
+    <link rel="alternate" hreflang="en" href="https://medlabgroup.org/leadership.html?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://medlabgroup.org/leadership.html" />
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/png" href="/image/medlab-logo.png" />
+    <link rel="apple-touch-icon" href="/image/medlab-logo.png" /> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.18/index.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-text">Medlab Group</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">
+            <span data-i18n="nav_home">Əsas Səhifə</span>
+          </a>
+          <a href="about.html" class="nav-link">
+            <span data-i18n="nav_about">Haqqımızda</span>
+          </a>
+          <div class="nav-link dropdown">
+            <span data-i18n="nav_companies" style="cursor: pointer">Şirkətlər</span>
+            <div class="dropdown-menu">
+              <a href="medsun.html" class="dropdown-item"> Medsun Klinikaları </a>
+              <a href="medlab.html" class="dropdown-item"> Medlab Laboratoriya </a>
+              <a href="medical.html" class="dropdown-item"> Medlab Medical </a>
+            </div>
+          </div>
+          <a href="leadership.html" class="nav-link active">
+            <span data-i18n="nav_leadership">Rəhbərlik</span>
+          </a>
+          <a href="media.html" class="nav-link">
+            <span data-i18n="nav_media">Media</span>
+          </a>
+          <a href="contact.html" class="nav-link">
+            <span data-i18n="nav_contact">Əlaqə</span>
+          </a>
+        </nav>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" onclick="setLang('az')">AZ</button>
+          <button class="lang-btn" onclick="setLang('ru')">RU</button>
+          <button class="lang-btn" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Leadership Hero -->
+      <section class="hero" style="min-height: auto; padding: 40px 20px 28px;">
+        <div class="container" style="text-align: center; max-width: 800px">
+          <div class="hero-badge">
+            <div
+              style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%"
+            ></div>
+            <span data-i18n="leaders_label">Rəhbərlik</span>
+          </div>
+          <h1 data-i18n="lead_hero_title">İdarəetmə və Rəhbərlik</h1>
+          <p data-i18n="lead_hero_subtitle">
+            Səhiyyə sahəsində zəngin təcrübəyə malik, şirkətimizin strateji hədəflərini həyata
+            keçirən peşəkar komanda.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="leaders-grid" id="leadersGridPage">
+            <!-- Leaders loaded dynamically from /api/leadership/global -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3 style="color: var(--white); margin-bottom: 8px">Medlab Medical Group</h3>
+            <p data-i18n="footer_desc">
+              Səhiyyə sahəsində etibarlı həll və innovativ xidmətlər təqdim edən lider holdinq.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_product">Məhsullar</h4>
+            <a href="medsun.html" data-i18n="footer_product_medsun">Medsun Klinikaları</a>
+            <a href="medlab.html" data-i18n="footer_product_medlab">Medlab Laboratoriya</a>
+            <a href="medical.html" data-i18n="footer_product_medical">Medlab Medical</a>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_company">Şirkət</h4>
+            <a href="about.html" data-i18n="footer_company_about">Haqqımızda</a>
+            <a href="leadership.html" data-i18n="footer_company_leadership">Rəhbərlik</a>
+            <a href="media.html" data-i18n="footer_company_media">Media</a>
+            <a href="contact.html" data-i18n="footer_company_contact">Əlaqə</a>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_legal">Hüquqi</h4>
+            <a href="#" data-i18n="footer_legal_privacy">Gizlilik Siyasəti</a>
+            <a href="#" data-i18n="footer_legal_terms">İstifadə Şərtləri</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p data-i18n="footer_copyright">© 2024 Medlab Medical Group. Bütün hüquqlar qorunur.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/site-api.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start *)",
+      "Bash(npx kill-port *)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(node -e \"const Gallery = require\\('./models/Gallery'\\); console.log\\(Gallery.schema.paths\\)\")",
+      "Bash(node server/server.js)",
+      "Bash(curl -s http://localhost:5000/api/gallery?limit=3)",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const r=JSON.parse\\(d\\); console.log\\(JSON.stringify\\(r.data?.slice\\(0,2\\), null, 2\\)\\)\")",
+      "Bash(curl -s \"http://localhost:5000/api/gallery?limit=3\")",
+      "Bash(taskkill /F /FI \"WINDOWTITLE eq node*\" /IM node.exe)",
+      "PowerShell(Stop-Process -Name node -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Start-Process -FilePath \"node\" -ArgumentList \"server/server.js\" -WorkingDirectory \"c:\\\\Users\\\\N. Badalov\\\\Desktop\\\\Medlab Group\\\\server\" -WindowStyle Hidden)",
+      "PowerShell(Set-Location \"c:\\\\Users\\\\N. Badalov\\\\Desktop\\\\Medlab Group\\\\server\"; $proc = Start-Process -FilePath \"node\" -ArgumentList \"server.js\" -PassThru -WindowStyle Normal; Start-Sleep -Seconds 5; Write-Output \"PID: $\\($proc.Id\\)\"; Invoke-WebRequest -Uri \"http://localhost:5000/api/gallery?limit=1\" -UseBasicParsing | Select-Object -ExpandProperty Content)",
+      "Bash(curl -s -X POST \"http://localhost:5000/api/auth/login\" -H \"Content-Type: application/json\" -d \"{\\\\\"username\\\\\":\\\\\"admin\\\\\",\\\\\"password\\\\\":\\\\\"admin123\\\\\"}\")",
+      "Bash(curl -s -X POST \"http://localhost:5000/api/auth/login\" -H \"Content-Type: application/json\" -d '{\"email\":\"admin@medlab.az\",\"password\":\"admin123\"}')",
+      "Bash(curl -s \"http://localhost:5000/api/gallery?limit=5\")",
+      "Bash(curl -s \"http://localhost:5000/api/gallery?limit=10\")",
+      "Bash(curl -s \"http://localhost:5000/js/media-page.js\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:5000/uploads/gallery/1776771807550-138953269.jpg\")",
+      "Bash(curl -s \"http://localhost:5000/media.html\")",
+      "PowerShell(Start-Process -FilePath \"node\" -ArgumentList \"server.js\" -WorkingDirectory \"c:\\\\Users\\\\N. Badalov\\\\Desktop\\\\Medlab Group\\\\server\" -WindowStyle Hidden)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:5000/api/gallery?limit=1\" -UseBasicParsing)"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir *)",
+      "Bash(copy *)",
+      "Bash(node *)",
+      "Bash(npx *)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(timeout *)",
+      "Bash(curl *)",
+      "Bash(powershell *)",
+      "Bash(taskkill *)"
+    ]
+  },
+  "$version": 3
+}

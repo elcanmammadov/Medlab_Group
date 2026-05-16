@@ -1,0 +1,184 @@
+﻿<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO (updated dynamically by js/seo.js after company loads) -->
+    <title>Şirkət | Medlab Medical Group</title>
+    <meta name="description" content="Medlab Medical Group şirkəti haqqında — filiallar, xidmətlər və rəhbərlik." />
+    <meta name="keywords" content="Medlab şirkət, klinika filiallar, tibbi mərkəz Azərbaycan" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Medlab Medical Group" />
+    <meta name="theme-color" content="#1E88E5" />
+
+    <!-- Open Graph (updated dynamically) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Medlab Medical Group" />
+    <meta property="og:title" content="Şirkət | Medlab Medical Group" />
+    <meta property="og:description" content="Medlab Medical Group şirkəti — filiallar, xidmətlər və rəhbərlik." />
+    <meta property="og:image" content="https://medlabgroup.org/image/medlab-logo.png" />
+    <meta property="og:image:alt" content="Medlab Medical Group" />
+    <meta property="og:url" content="https://medlabgroup.org/company.html" />
+    <meta property="og:locale" content="az_AZ" />
+
+    <!-- Twitter Card (updated dynamically) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Şirkət | Medlab Medical Group" />
+    <meta name="twitter:description" content="Medlab Medical Group şirkəti — filiallar və xidmətlər." />
+    <meta name="twitter:image" content="https://medlabgroup.org/image/medlab-logo.png" />
+
+    <!-- Canonical (updated dynamically) -->
+    <link rel="canonical" href="https://medlabgroup.org/company.html" id="canonicalLink" />
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/png" href="/image/medlab-logo.png" />
+    <link rel="apple-touch-icon" href="/image/medlab-logo.png" /> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.18/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-text">Medlab Group</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">
+            <span data-i18n="nav_home">Əsas Səhifə</span>
+          </a>
+          <a href="about.html" class="nav-link">
+            <span data-i18n="nav_about">Haqqımızda</span>
+          </a>
+          <a href="companies.html" class="nav-link">
+            <span data-i18n="nav_companies">Şirkətlər</span>
+          </a>
+          <a href="leadership.html" class="nav-link">
+            <span data-i18n="nav_leadership">Rəhbərlik</span>
+          </a>
+          <a href="media.html" class="nav-link">
+            <span data-i18n="nav_media">Media</span>
+          </a>
+          <a href="contact.html" class="nav-link">
+            <span data-i18n="nav_contact">Əlaqə</span>
+          </a>
+        </nav>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" onclick="setLang('az')">AZ</button>
+          <button class="lang-btn" onclick="setLang('ru')">RU</button>
+          <button class="lang-btn" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Company Header -->
+      <div class="company-header">
+        <div class="company-left">
+          <img class="company-logo" src="image/medlab-logo.png" alt="Company" />
+        </div>
+        <div class="company-right">
+          <h1>Company</h1>
+          <a href="index.html" class="btn btn-secondary"
+            ><svg
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" /></svg
+            ><span data-i18n="btn_back">Əsas Səhifəyə Qayıt</span></a
+          >
+        </div>
+      </div>
+
+      <!-- Top-Level Tabs -->
+      <div class="container">
+        <div class="company-tabs">
+          <button class="tab-btn active" data-top-tab="branches">
+            <span data-i18n="top_tab_branches">Filiallarımız</span>
+          </button>
+          <button class="tab-btn" data-top-tab="about">
+            <span data-i18n="top_tab_about">Haqqımızda</span>
+          </button>
+          <button class="tab-btn" data-top-tab="leadership">
+            <span data-i18n="top_tab_leadership">Rəhbərlik</span>
+          </button>
+        </div>
+
+        <!-- Branches Tab Content -->
+        <div class="top-tab-content active" id="tab-branches">
+          <h2 class="branches-section-title" data-i18n="sec_branches">Filiallarımız</h2>
+          <div class="branches-grid" id="branchesGrid"></div>
+
+          <!-- Branch Details -->
+          <div class="branch-details" id="branchDetails">
+            <div class="branch-details-header">
+              <h2 id="branchDetailName"></h2>
+              <button class="btn-back-branches" onclick="closeBranch()">
+                <svg
+                  width="14"
+                  height="14"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                <span data-i18n="btn_back_branches">Filiallara Qayıt</span>
+              </button>
+            </div>
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="bt-address">
+                <span data-i18n="tab_address">Ünvan</span>
+              </button>
+              <button class="tab-btn" data-tab="bt-services">
+                <span data-i18n="tab_services">Xidmətlər</span>
+              </button>
+              <button class="tab-btn" data-tab="bt-doctors">
+                <span data-i18n="tab_doctors">Həkimlər</span>
+              </button>
+            </div>
+            <div class="tab-content active" id="bt-address"><div id="branchAddress"></div></div>
+            <div class="tab-content" id="bt-services"><ul id="branchServices"></ul></div>
+            <div class="tab-content" id="bt-doctors">
+              <div class="doctors-grid" id="branchDoctors"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Tab Content -->
+        <div class="top-tab-content" id="tab-about">
+          <div class="about-section">
+            <h2 data-i18n="about_title">Haqqımızda</h2>
+            <p class="about-intro">...</p>
+          </div>
+        </div>
+
+        <!-- Leadership Tab Content -->
+        <div class="top-tab-content" id="tab-leadership">
+          <div class="leadership-grid" id="leadershipGrid"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span data-i18n="footer_copy">© 2026 Medlab Medical Group. Bütün hüquqlar qorunur.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/company-page.js"></script>
+  </body>
+</html>

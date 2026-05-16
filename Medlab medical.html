@@ -1,0 +1,2157 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medlab Medical Group</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.18/index.css" />
+    <style>
+      :root {
+        --primary: #1e88e5;
+        --primary-dark: #1565c0;
+        --primary-light: #64b5f6;
+        --primary-bg: #e3f2fd;
+        --gradient: linear-gradient(135deg, #1565c0 0%, #1e88e5 50%, #42a5f5 100%);
+        --white: #ffffff;
+        --light-gray: #f5f7fa;
+        --mid-gray: #e8ecf1;
+        --text-dark: #0f172a;
+        --text-medium: #475569;
+        --text-light: #94a3b8;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        color: var(--text-dark);
+        background: var(--white);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: var(--transition);
+      }
+      ul {
+        list-style: none;
+      }
+      img,
+      svg {
+        max-width: 100%;
+        display: block;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.9rem;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--white);
+      }
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+      }
+      .btn-secondary {
+        background: var(--white);
+        color: var(--primary);
+        border: 1.5px solid var(--primary);
+      }
+      .btn-secondary:hover {
+        background: var(--primary-bg);
+        transform: translateY(-2px);
+      }
+      .section {
+        padding: 80px 0;
+      }
+      .section-alt {
+        background: var(--light-gray);
+      }
+      .section-header {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto 48px;
+      }
+      .section-label {
+        color: var(--primary);
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+      }
+      .section-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+        line-height: 1.2;
+      }
+      .section-desc {
+        color: var(--text-medium);
+        font-size: 1.05rem;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+      .header.scrolled {
+        box-shadow: var(--shadow-md);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
+ 
+      .nav-links {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+      .nav-link {
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-medium);
+        cursor: pointer;
+        position: relative;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--primary);
+        background: var(--primary-bg);
+      }
+      .dropdown {
+        position: relative;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        background: var(--white);
+        padding: 8px;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: var(--transition);
+        z-index: 10;
+        border: 1px solid var(--mid-gray);
+      }
+      .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(4px);
+      }
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        color: var(--text-medium);
+        transition: var(--transition);
+      }
+      .dropdown-item:hover {
+        background: var(--primary-bg);
+        color: var(--primary);
+      }
+      .lang-switch {
+        display: flex;
+        gap: 6px;
+        margin-left: 16px;
+        padding: 4px;
+        background: var(--light-gray);
+        border-radius: 8px;
+      }
+      .lang-btn {
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        color: var(--text-light);
+        background: transparent;
+      }
+      .lang-btn.active {
+        background: var(--white);
+        color: var(--primary);
+        box-shadow: var(--shadow-sm);
+      }
+      .mobile-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        padding: 8px;
+        cursor: pointer;
+      }
+      .mobile-toggle span {
+        width: 24px;
+        height: 2px;
+        background: var(--text-dark);
+        border-radius: 2px;
+        transition: var(--transition);
+      }
+      .mobile-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .mobile-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .mobile-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--white);
+        padding: 24px;
+        z-index: 999;
+        flex-direction: column;
+        gap: 8px;
+        overflow-y: auto;
+      }
+      .mobile-menu.active {
+        display: flex;
+      }
+      .mobile-link {
+        padding: 16px;
+        border-radius: var(--radius-sm);
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-medium);
+        cursor: pointer;
+      }
+      .mobile-link:hover,
+      .mobile-link.active {
+        background: var(--primary-bg);
+        color: var(--primary);
+      }
+      .mobile-link--has-sub { user-select: none; }
+      .mobile-link--has-sub .mobile-sub-header { display: flex; justify-content: space-between; align-items: center; }
+      .mobile-sub-arrow { font-size: 0.75rem; transition: transform 0.25s ease; color: var(--text-medium); }
+      .mobile-link--has-sub.open .mobile-sub-arrow { transform: rotate(180deg); }
+      .mobile-sub { display: none; margin-top: 10px; padding-left: 12px; border-left: 2px solid var(--primary-bg); }
+      .mobile-sub-item { padding: 10px 8px; font-weight: 600; color: var(--primary); cursor: pointer; border-radius: var(--radius-sm); }
+      .mobile-sub-item:hover { background: var(--primary-bg); }
+
+      /* Hero */
+      .hero {
+        padding: 140px 20px 80px;
+        background: linear-gradient(180deg, #e3f2fd 0%, #ffffff 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 10% 20%, rgba(30, 136, 229, 0.1) 0%, transparent 40%),
+          radial-gradient(circle at 90% 80%, rgba(66, 165, 245, 0.1) 0%, transparent 40%);
+        pointer-events: none;
+      }
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: var(--white);
+        border: 1px solid var(--mid-gray);
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 16px;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        color: var(--text-dark);
+      }
+      .hero p {
+        font-size: 1.1rem;
+        color: var(--text-medium);
+        margin-bottom: 28px;
+        max-width: 520px;
+      }
+      .hero-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .hero-visual {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .stat-card {
+        background: var(--white);
+        padding: 20px;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        transition: var(--transition);
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
+      }
+      .stat-num {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .stat-label {
+        font-size: 0.8rem;
+        color: var(--text-light);
+        font-weight: 500;
+      }
+
+      /* Companies */
+      .companies-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .company-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 28px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--mid-gray);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+      }
+      .company-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-light);
+      }
+      .company-logo-wrap {
+        width: 56px;
+        height: 56px;
+        background: var(--primary-bg);
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .company-name {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .company-desc {
+        font-size: 0.9rem;
+        color: var(--text-medium);
+        line-height: 1.6;
+        flex-grow: 1;
+        margin-bottom: 20px;
+      }
+      .explore-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        color: var(--white);
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        will-change: transform;
+      }
+      .explore-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4);
+        filter: brightness(1.03);
+      }
+      .explore-btn:active {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 12px rgba(30, 136, 229, 0.38);
+      }
+      .explore-btn:focus-visible {
+        outline: 3px solid rgba(30, 136, 229, 0.35);
+        outline-offset: 3px;
+      }
+      .explore-btn .arrow {
+        transition: transform 0.3s ease;
+        line-height: 1;
+      }
+      .explore-btn:hover .arrow {
+        transform: translateX(5px);
+      }
+
+      .explore-btn.is-glass {
+        background: linear-gradient(135deg, rgba(30, 136, 229, 0.85) 0%, rgba(66, 165, 245, 0.65) 100%);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .explore-btn.is-outline {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        box-shadow: none;
+      }
+      .explore-btn.is-outline:hover {
+        background: var(--primary);
+        color: var(--white);
+        filter: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .explore-btn,
+        .explore-btn .arrow {
+          transition: none;
+        }
+        .explore-btn:hover,
+        .explore-btn:active {
+          transform: none;
+        }
+      }
+
+      /* MVV */
+      .mvv-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .mvv-card {
+        background: var(--white);
+        padding: 32px 24px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--mid-gray);
+        text-align: center;
+        transition: var(--transition);
+      }
+      .mvv-card:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+      }
+      .mvv-icon {
+        width: 56px;
+        height: 56px;
+        background: var(--primary-bg);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        color: var(--primary);
+      }
+      .mvv-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .mvv-text {
+        font-size: 0.9rem;
+        color: var(--text-medium);
+        line-height: 1.7;
+      }
+
+      /* Leaders */
+      .leaders-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .leader-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--mid-gray);
+        transition: var(--transition);
+      }
+      .leader-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-xl);
+      }
+      .leader-img {
+        width: 100%;
+        height: 260px;
+        background: linear-gradient(135deg, #e3f2fd 0%, #f8fafc 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: var(--primary);
+      }
+      .leader-info {
+        padding: 24px;
+        text-align: center;
+      }
+      .leader-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .leader-role {
+        font-size: 0.85rem;
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .leader-bio {
+        font-size: 0.85rem;
+        color: var(--text-medium);
+        line-height: 1.6;
+      }
+
+      /* Media */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      .news-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--mid-gray);
+        transition: var(--transition);
+      }
+      .news-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+      .news-img {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(135deg, #e3f2fd 0%, #dbeafe 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      .news-body {
+        padding: 20px;
+      }
+      .news-tag {
+        display: inline-block;
+        padding: 4px 10px;
+        background: var(--primary-bg);
+        color: var(--primary);
+        font-size: 0.7rem;
+        font-weight: 700;
+        border-radius: 50px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      .news-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .news-date {
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-top: 32px;
+      }
+      .gallery-item {
+        aspect-ratio: 4/3;
+        background: linear-gradient(135deg, #e3f2fd 0%, #dbeafe 100%);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+      .gallery-item::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: var(--transition);
+      }
+      .gallery-item:hover {
+        transform: scale(1.02);
+      }
+      .gallery-item:hover::after {
+        opacity: 1;
+      }
+
+      /* Contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: start;
+      }
+      .contact-form {
+        background: var(--white);
+        padding: 32px;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--mid-gray);
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid var(--mid-gray);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        background: var(--light-gray);
+      }
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px var(--primary-bg);
+        background: var(--white);
+      }
+      .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .contact-info-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .info-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+        background: var(--white);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--mid-gray);
+      }
+      .info-icon {
+        width: 44px;
+        height: 44px;
+        background: var(--primary-bg);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        flex-shrink: 0;
+      }
+      .info-content h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .info-content p {
+        font-size: 0.9rem;
+        color: var(--text-medium);
+      }
+      .map-box {
+        margin-top: 32px;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        border: 1px solid var(--mid-gray);
+        box-shadow: var(--shadow-md);
+        height: 300px;
+        background: var(--light-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+      }
+
+      /* Pages visibility */
+      .page {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+      .page.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--text-dark);
+        color: var(--white);
+        padding: 60px 0 0;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 32px;
+        margin-bottom: 40px;
+      }
+      .footer-brand p {
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 12px;
+        font-size: 0.9rem;
+        max-width: 280px;
+      }
+      .footer-col h4 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .footer-col a {
+        display: block;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 4px 0;
+        font-size: 0.85rem;
+        transition: var(--transition);
+      }
+      .footer-col a:hover {
+        color: var(--primary-light);
+      }
+      .footer-social {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .footer-social a {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+      .footer-social a:hover {
+        background: var(--primary);
+        transform: translateY(-2px);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.8rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 32px;
+        }
+        .hero p {
+          margin: 0 auto 24px;
+        }
+        .hero-buttons {
+          justify-content: center;
+        }
+        .hero-visual {
+          max-width: 400px;
+          margin: 0 auto;
+        }
+        .companies-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .mvv-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .leaders-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .news-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .lang-switch {
+          display: none;
+        }
+        .mobile-toggle {
+          display: flex;
+        }
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+        .section {
+          padding: 60px 0;
+        }
+        .section-title {
+          font-size: 1.8rem;
+        }
+        .companies-grid,
+        .mvv-grid,
+        .leaders-grid,
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+      }
+
+      /* Utilities */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container header-inner">
+        <a
+          href="#"
+          class="logo"
+          onclick="
+            navTo('home');
+            return false;
+          "
+        >
+      
+          <span data-i18n="brand">Medlab Medical Group</span>
+        </a>
+
+        <nav class="nav-links">
+          <div class="nav-link" data-page="home" onclick="navTo('home')">
+            <span data-i18n="nav_home">Əsas Səhifə</span>
+          </div>
+          <div class="nav-link" data-page="about" onclick="navTo('about')">
+            <span data-i18n="nav_about">Haqqımızda</span>
+          </div>
+          <div class="nav-link dropdown">
+            <span data-i18n="nav_companies" style="cursor: pointer">Şirkətlər</span>
+            <div class="dropdown-menu">
+              <div
+                class="dropdown-item"
+                onclick="
+                  navTo('home');
+                  showToast('Medsun Klinikaları');
+                "
+              >
+                <svg width="16" height="16" fill="#1E88E5" viewBox="0 0 24 24">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+                Medsun Klinikaları
+              </div>
+              <div
+                class="dropdown-item"
+                onclick="
+                  navTo('home');
+                  showToast('Medlab Laboratoriya');
+                "
+              >
+                <svg width="16" height="16" fill="#1E88E5" viewBox="0 0 24 24">
+                  <path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z" />
+                </svg>
+                Medlab Laboratoriya
+              </div>
+              <div
+                class="dropdown-item"
+                onclick="
+                  navTo('home');
+                  showToast('Medical');
+                "
+              >
+                <svg width="16" height="16" fill="#1E88E5" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"
+                  />
+                </svg>
+                Medical
+              </div>
+            </div>
+          </div>
+          <div class="nav-link" data-page="leadership" onclick="navTo('leadership')">
+            <span data-i18n="nav_leadership">Rəhbərlik</span>
+          </div>
+          <div class="nav-link" data-page="media" onclick="navTo('media')">
+            <span data-i18n="nav_media">Media</span>
+          </div>
+          <div class="nav-link" data-page="contact" onclick="navTo('contact')">
+            <span data-i18n="nav_contact">Əlaqə</span>
+          </div>
+        </nav>
+
+        <div class="lang-switch" id="langSwitch">
+          <div class="lang-btn active" onclick="setLang('az')">AZ</div>
+          <div class="lang-btn" onclick="setLang('ru')">RU</div>
+          <div class="lang-btn" onclick="setLang('en')">EN</div>
+        </div>
+
+        <div class="mobile-toggle" onclick="toggleMobile()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-link active" data-page="home" onclick="navTo('home')">
+        <span data-i18n="nav_home">Əsas Səhifə</span>
+      </div>
+      <div class="mobile-link" data-page="about" onclick="navTo('about')">
+        <span data-i18n="nav_about">Haqqımızda</span>
+      </div>
+      <div
+        class="mobile-link mobile-link--has-sub"
+        onclick="toggleMobileSub(this)"
+      >
+        <div class="mobile-sub-header">
+          <span data-i18n="nav_companies">Şirkətlər</span>
+          <span class="mobile-sub-arrow">&#9660;</span>
+        </div>
+        <div class="mobile-sub">
+          <div class="mobile-sub-item" onclick="event.stopPropagation(); window.location.href='medsun.html';">
+            Medsun Klinikaları
+          </div>
+          <div class="mobile-sub-item" onclick="event.stopPropagation(); window.location.href='medlab.html';">
+            Medlab Laboratoriya
+          </div>
+          <div class="mobile-sub-item" onclick="event.stopPropagation(); window.location.href='medical.html';">
+            Medlab Medical
+          </div>
+        </div>
+      </div>
+      <div class="mobile-link" data-page="leadership" onclick="navTo('leadership')">
+        <span data-i18n="nav_leadership">Rəhbərlik</span>
+      </div>
+      <div class="mobile-link" data-page="media" onclick="navTo('media')">
+        <span data-i18n="nav_media">Media</span>
+      </div>
+      <div class="mobile-link" data-page="contact" onclick="navTo('contact')">
+        <span data-i18n="nav_contact">Əlaqə</span>
+      </div>
+      <div style="margin-top: auto; padding-top: 16px">
+        <div class="lang-switch" style="margin: 0">
+          <div
+            class="lang-btn active"
+            onclick="
+              setLang('az');
+              toggleMobile();
+            "
+          >
+            AZ
+          </div>
+          <div
+            class="lang-btn"
+            onclick="
+              setLang('ru');
+              toggleMobile();
+            "
+          >
+            RU
+          </div>
+          <div
+            class="lang-btn"
+            onclick="
+              setLang('en');
+              toggleMobile();
+            "
+          >
+            EN
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- HOME PAGE -->
+      <section class="page active" id="page-home">
+        <div class="hero">
+          <div class="hero-content">
+            <div class="hero-text">
+              <div class="hero-badge">
+                <div
+                  style="
+                    width: 8px;
+                    height: 8px;
+                    background: var(--primary);
+                    border-radius: 50%;
+                    animation: pulse 2s infinite;
+                  "
+                ></div>
+                <span data-i18n="hero_badge">Sağlamlığa İnkişaf</span>
+              </div>
+              <h1 data-i18n="hero_title">Səhiyyəni Yeniliklər və Keyfiyyətlə Dəyişirik</h1>
+              <p data-i18n="hero_subtitle">
+                Medlab Medical Group diaqnostika, kliniki xidmətlər və tibbi texnologiyalar
+                sahəsində innovativ həllər təqdim edən aparıcı səhiyyə holdinq şirkətidir.
+              </p>
+              <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="navTo('about')">
+                  <span data-i18n="hero_btn_about">Haqqımızda</span>
+                </button>
+                <button class="btn btn-secondary" onclick="navTo('contact')">
+                  <span data-i18n="hero_btn_contact">Əlaqə</span>
+                </button>
+              </div>
+            </div>
+            <div class="hero-visual">
+              <div class="stat-card">
+                <div class="stat-num">3</div>
+                <div class="stat-label" data-i18n="stat_comp">Əsas Şirkət</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">50+</div>
+                <div class="stat-label" data-i18n="stat_loc">Filial & Klinik</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">1000+</div>
+                <div class="stat-label" data-i18n="stat_staff">İşçi Sayı</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label" data-i18n="stat_sup">Dəstək</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-label" data-i18n="sec_comp_label">Bizim Şirkətlər</div>
+              <h2 class="section-title" data-i18n="sec_comp_title">Əsas Alt Şirkətlər</h2>
+              <p class="section-desc" data-i18n="sec_comp_desc">
+                Səhiyyənin hər sahəsində peşəkar xidmət göstərən qrup şirkətlərimiz.
+              </p>
+            </div>
+            <div class="companies-grid">
+              <div class="company-card fade-in">
+                <div class="company-logo-wrap">
+                  <svg width="28" height="28" fill="#1E88E5" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                  </svg>
+                </div>
+                <div class="company-name">Medsun Klinikaları</div>
+                <p class="company-desc" data-i18n="desc_medsun">
+                  Müasir avadanlıqlar və peşəkar həkimlərlə təchiz olunmuş geniş klinikalar
+                  şəbəkəsi.
+                </p>
+                <a
+                  href="#"
+                  class="explore-btn"
+                  onclick="
+                    showToast('Medsun Klinikaları');
+                    return false;
+                  "
+                  ><span data-i18n="btn_more">Ətraflı Bax</span>
+                  <span class="arrow" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+              <div class="company-card fade-in">
+                <div class="company-logo-wrap">
+                  <svg width="28" height="28" fill="#1E88E5" viewBox="0 0 24 24">
+                    <path
+                      d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"
+                    />
+                  </svg>
+                </div>
+                <div class="company-name">Medlab Laboratoriya</div>
+                <p class="company-desc" data-i18n="desc_medlab">
+                  Beynəlxalq standartlara cavab verən yüksək dəqiqlikli diaqnostika və laboratoriya
+                  xidmətləri.
+                </p>
+                <a
+                  href="#"
+                  class="explore-btn"
+                  onclick="
+                    showToast('Medlab Laboratoriya');
+                    return false;
+                  "
+                  ><span data-i18n="btn_more">Ətraflı Bax</span>
+                  <span class="arrow" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+              <div class="company-card fade-in">
+                <div class="company-logo-wrap">
+                  <svg width="28" height="28" fill="#1E88E5" viewBox="0 0 24 24">
+                    <path
+                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"
+                    />
+                  </svg>
+                </div>
+                <div class="company-name">Medical</div>
+                <p class="company-desc" data-i18n="desc_medical">
+                  Ümumi tibbi xidmətlər, sağlamlıq yoxlamaları və fərdi müalicə proqramları təqdim
+                  edən marka.
+                </p>
+                <a
+                  href="#"
+                  class="explore-btn"
+                  onclick="
+                    showToast('Medical');
+                    return false;
+                  "
+                  ><span data-i18n="btn_more">Ətraflı Bax</span>
+                  <span class="arrow" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-alt">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-label" data-i18n="mvv_label">Dəyərlərimiz</div>
+              <h2 class="section-title" data-i18n="mvv_title">Missiya, Vizyon və Dəyərlər</h2>
+            </div>
+            <div class="mvv-grid">
+              <div class="mvv-card fade-in">
+                <div class="mvv-icon">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                  </svg>
+                </div>
+                <div class="mvv-title" data-i18n="mission_title">Missiya</div>
+                <p class="mvv-text" data-i18n="mission_desc">
+                  Hər kəs üçün əlçatan, keyfiyyətli və yenilikçi tibbi xidmət göstərmək.
+                </p>
+              </div>
+              <div class="mvv-card fade-in">
+                <div class="mvv-icon">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                    />
+                  </svg>
+                </div>
+                <div class="mvv-title" data-i18n="vision_title">Vizyon</div>
+                <p class="mvv-text" data-i18n="vision_desc">
+                  Regional lider və etibarlı səhiyyə partnyoru olmaq.
+                </p>
+              </div>
+              <div class="mvv-card fade-in">
+                <div class="mvv-icon">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                    />
+                  </svg>
+                </div>
+                <div class="mvv-title" data-i18n="values_title">Dəyərlər</div>
+                <p class="mvv-text" data-i18n="values_desc">
+                  Dürüstlük, peşəkarlıq, xəstə mərkəzli yanaşma və fasiləsiz innovasiya.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-label" data-i18n="leaders_label">Rəhbərlik</div>
+              <h2 class="section-title" data-i18n="leaders_title">İdarəetmə Komandası</h2>
+            </div>
+            <div class="leaders-grid">
+              <div class="leader-card fade-in">
+                <div class="leader-img">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="#1E88E5">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+                <div class="leader-info">
+                  <div class="leader-name" data-i18n="l1_name">Dr. Əli Hüseynov</div>
+                  <div class="leader-role" data-i18n="l1_role">Baş Direktor</div>
+                  <p class="leader-bio" data-i18n="l1_bio">
+                    20+ illik səhiyyə idarəetməsi təcrübəsi ilə şirkətimizin strateji inkişafını
+                    idarə edir.
+                  </p>
+                </div>
+              </div>
+              <div class="leader-card fade-in">
+                <div class="leader-img">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="#1E88E5">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+                <div class="leader-info">
+                  <div class="leader-name" data-i18n="l2_name">Leyla Quliyeva</div>
+                  <div class="leader-role" data-i18n="l2_role">Əməliyyat Direktoru</div>
+                  <p class="leader-bio" data-i18n="l2_bio">
+                    Bütün filialların fəaliyyətini və əməliyyat proseslərini səmərəli şəkildə idarə
+                    edir.
+                  </p>
+                </div>
+              </div>
+              <div class="leader-card fade-in">
+                <div class="leader-img">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="#1E88E5">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+                <div class="leader-info">
+                  <div class="leader-name" data-i18n="l3_name">Dr. Ramin Məmmədov</div>
+                  <div class="leader-role" data-i18n="l3_role">Tibbi Direktor</div>
+                  <p class="leader-bio" data-i18n="l3_bio">
+                    Klinik keyfiyyət və tibbi standartların təmin olunması üzrə mütəxəssis.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ABOUT PAGE -->
+      <section class="page" id="page-about">
+        <div class="hero">
+          <div class="container" style="text-align: center; max-width: 800px">
+            <div class="hero-badge">
+              <div
+                style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%"
+              ></div>
+              <span data-i18n="hero_badge">Haqqımızda</span>
+            </div>
+            <h1 data-i18n="about_hero_title">Medlab Medical Group Haqqında</h1>
+            <p data-i18n="about_hero_subtitle">
+              2012-ci ildən etibarən səhiyyənin inkişafına töhfə verən, innovasiya və etibar
+              əsasında qurulmuş lider holdinq qrupu.
+            </p>
+          </div>
+        </div>
+        <section class="section">
+          <div class="container">
+            <div
+              class="mvv-grid"
+              style="grid-template-columns: 1fr 1fr; max-width: 900px; margin: 0 auto"
+            >
+              <div class="mvv-card fade-in">
+                <div class="mvv-icon">
+                  <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                    />
+                  </svg>
+                </div>
+                <h3 data-i18n="history_title">Tarixçə</h3>
+                <p class="mvv-text" data-i18n="history_desc">
+                  2012-ci ildə Bakıda kiçik laboratoriya olaraq fəaliyyətə başladıq. Qısa müddətdə
+                  klinikalar, tibbi avadanlıq və diaqnostika sahəsində genişləndik. Bu gün 3 əsas
+                  şirkətimiz ilə minlərlə xəstəyə xidmət göstəririk.
+                </p>
+              </div>
+              <div class="mvv-card fade-in">
+                <div class="mvv-icon">
+                  <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                    />
+                  </svg>
+                </div>
+                <h3 data-i18n="achieve_title">Nailiyyətlər</h3>
+                <p class="mvv-text" data-i18n="achieve_desc">
+                  ISO 15189 və beynəlxalq keyfiyyət sertifikatlarına sahibik. Ölkə üzrə 50+ nöqtədə
+                  xidmət göstəririk. İllik 1 milyon+ diaqnostik test aparılır.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- LEADERSHIP PAGE -->
+      <section class="page" id="page-leadership">
+        <div class="hero">
+          <div class="container" style="text-align: center; max-width: 800px">
+            <div class="hero-badge">
+              <div
+                style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%"
+              ></div>
+              <span data-i18n="leaders_label">Rəhbərlik</span>
+            </div>
+            <h1 data-i18n="lead_hero_title">İdarəetmə və Rəhbərlik</h1>
+            <p data-i18n="lead_hero_subtitle">
+              Səhiyyə sahəsində zəngin təcrübəyə malik, şirkətimizin strateji hədəflərini həyata
+              keçirən peşəkar komanda.
+            </p>
+          </div>
+        </div>
+        <section class="section">
+          <div class="container">
+            <div class="leaders-grid">
+              <div class="leader-card fade-in">
+                <div class="leader-img">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="#1E88E5">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+                <div class="leader-info">
+                  <div class="leader-name" data-i18n="l1_name">Dr. Əli Hüseynov</div>
+                  <div class="leader-role" data-i18n="l1_role">Baş Direktor</div>
+                  <p class="leader-bio" data-i18n="l1_bio">
+                    20+ illik səhiyyə idarəetməsi təcrübəsi ilə şirkətimizin strateji inkişafını
+                    idarə edir.
+                  </p>
+                </div>
+              </div>
+              <div class="leader-card fade-in">
+                <div class="leader-img">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="#1E88E5">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+                <div class="leader-info">
+                  <div class="leader-name" data-i18n="l2_name">Leyla Quliyeva</div>
+                  <div class="leader-role" data-i18n="l2_role">Əməliyyat Direktoru</div>
+                  <p class="leader-bio" data-i18n="l2_bio">
+                    Bütün filialların fəaliyyətini və əməliyyat proseslərini səmərəli şəkildə idarə
+                    edir.
+                  </p>
+                </div>
+              </div>
+              <div class="leader-card fade-in">
+                <div class="leader-img">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="#1E88E5">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                    />
+                  </svg>
+                </div>
+                <div class="leader-info">
+                  <div class="leader-name" data-i18n="l3_name">Dr. Ramin Məmmədov</div>
+                  <div class="leader-role" data-i18n="l3_role">Tibbi Direktor</div>
+                  <p class="leader-bio" data-i18n="l3_bio">
+                    Klinik keyfiyyət və tibbi standartların təmin olunması üzrə mütəxəssis.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- MEDIA PAGE -->
+      <section class="page" id="page-media">
+        <div class="hero">
+          <div class="container" style="text-align: center; max-width: 800px">
+            <div class="hero-badge">
+              <div
+                style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%"
+              ></div>
+              <span data-i18n="nav_media">Media</span>
+            </div>
+            <h1 data-i18n="media_hero_title">Xəbərlər və Yeniliklər</h1>
+            <p data-i18n="media_hero_subtitle">
+              Şirkətimizin son uğurları, tədbirləri və media məlumatları ilə tanış olun.
+            </p>
+          </div>
+        </div>
+        <section class="section">
+          <div class="container">
+            <div class="news-grid">
+              <div class="news-card fade-in">
+                <div class="news-img" data-i18n="news1_img">Yeni Filial Açılışı</div>
+                <div class="news-body">
+                  <div class="news-tag" data-i18n="news1_tag">XƏBƏR</div>
+                  <div class="news-title" data-i18n="news1_title">
+                    Bakıda Yeni Medlab Laboratoriya Filialı Açıldı
+                  </div>
+                  <div class="news-date" data-i18n="news1_date">12 Aprel, 2026</div>
+                </div>
+              </div>
+              <div class="news-card fade-in">
+                <div class="news-img" data-i18n="news2_img">Tibbi Konfrans</div>
+                <div class="news-body">
+                  <div class="news-tag" data-i18n="news2_tag">TƏDBİR</div>
+                  <div class="news-title" data-i18n="news2_title">
+                    Medsun Klinikaları İllik Səhiyyə Sammitinə Ev Sahibliyi Etdi
+                  </div>
+                  <div class="news-date" data-i18n="news2_date">28 Mart, 2026</div>
+                </div>
+              </div>
+              <div class="news-card fade-in">
+                <div class="news-img" data-i18n="news3_img">Texnologiya</div>
+                <div class="news-body">
+                  <div class="news-tag" data-i18n="news3_tag">İNNOVASİYA</div>
+                  <div class="news-title" data-i18n="news3_title">
+                    Süni İntellekt Dəstəkli Diaqnostika Sistemləri Tətbiq Olundu
+                  </div>
+                  <div class="news-date" data-i18n="news3_date">10 Mart, 2026</div>
+                </div>
+              </div>
+            </div>
+            <div class="section-header" style="margin-top: 48px">
+              <h2 class="section-title" data-i18n="gallery_title">Foto Qalereya</h2>
+            </div>
+            <div class="gallery-grid">
+              <div class="gallery-item fade-in" data-i18n="g1">Klinika Daxili</div>
+              <div class="gallery-item fade-in" data-i18n="g2">Laboratoriya</div>
+              <div class="gallery-item fade-in" data-i18n="g3">Komanda</div>
+              <div class="gallery-item fade-in" data-i18n="g4">Avadanlıq</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- CONTACT PAGE -->
+      <section class="page" id="page-contact">
+        <div class="hero">
+          <div class="container" style="text-align: center; max-width: 800px">
+            <div class="hero-badge">
+              <div
+                style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%"
+              ></div>
+              <span data-i18n="nav_contact">Əlaqə</span>
+            </div>
+            <h1 data-i18n="contact_hero_title">Bizimlə Əlaqə</h1>
+            <p data-i18n="contact_hero_subtitle">
+              Suallarınız, təklifləriniz və ya əməkdaşlıq məsələlərində bizimlə əlaqə saxlayın.
+            </p>
+          </div>
+        </div>
+        <section class="section">
+          <div class="container">
+            <div class="contact-grid">
+              <form
+                class="contact-form fade-in"
+                onsubmit="
+                  event.preventDefault();
+                  showToast('Mesaj uğurla göndərildi!');
+                "
+              >
+                <h3
+                  style="font-size: 1.3rem; font-weight: 700; margin-bottom: 20px"
+                  data-i18n="form_title"
+                >
+                  Mesaj Göndər
+                </h3>
+                <div class="form-group">
+                  <label class="form-label" data-i18n="form_name">Ad, Soyad</label>
+                  <input class="form-input" type="text" required placeholder="Adınızı daxil edin" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" data-i18n="form_email">E-poçt</label>
+                  <input class="form-input" type="email" required placeholder="E-poçt ünvanı" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" data-i18n="form_msg">Mesaj</label>
+                  <textarea
+                    class="form-textarea"
+                    required
+                    placeholder="Mesajınızı yazın..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="width: 100%; justify-content: center"
+                  data-i18n="btn_send"
+                >
+                  Göndər
+                </button>
+              </form>
+              <div class="contact-info-cards fade-in">
+                <div class="info-card">
+                  <div class="info-icon">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="info-content">
+                    <h4 data-i18n="contact_phone">Telefon</h4>
+                    <p>+994 12 555 00 00</p>
+                  </div>
+                </div>
+                <div class="info-card">
+                  <div class="info-icon">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="info-content">
+                    <h4 data-i18n="contact_email">E-poçt</h4>
+                    <p>info@medlab.az</p>
+                  </div>
+                </div>
+                <div class="info-card">
+                  <div class="info-icon">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="info-content">
+                    <h4 data-i18n="contact_address">Ünvan</h4>
+                    <p data-i18n="contact_address_val">
+                      Bakı, Azərbaycan, Nəsimi rayonu, Əsas küçə 12
+                    </p>
+                  </div>
+                </div>
+                <div class="map-box" data-i18n="map_placeholder">📍 Xəritə Yerləşdirməsi</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="logo" style="color: var(--white)">
+             
+              <span>Medlab Medical Group</span>
+            </div>
+            <p data-i18n="footer_desc">
+              Səhiyyənin inkişafı və keyfiyyətli xidmət üçün daim yanınızdayıq.
+            </p>
+            <div class="footer-social">
+              <a href="#" onclick="event.preventDefault()"
+                ><svg width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0022 12.06C22 6.53 17.5 2.04 12 2.04z"
+                  /></svg
+              ></a>
+              <a href="#" onclick="event.preventDefault()"
+                ><svg width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                  <path
+                    d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"
+                  /></svg
+              ></a>
+              <a href="#" onclick="event.preventDefault()"
+                ><svg width="18" height="18" fill="#fff" viewBox="0 0 24 24">
+                  <path
+                    d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                  /></svg
+              ></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_comp">Şirkətlər</h4>
+            <a
+              href="#"
+              onclick="
+                showToast('Medsun Klinikaları');
+                return false;
+              "
+              >Medsun Klinikaları</a
+            >
+            <a
+              href="#"
+              onclick="
+                showToast('Medlab Laboratoriya');
+                return false;
+              "
+              >Medlab Laboratoriya</a
+            >
+            <a
+              href="#"
+              onclick="
+                showToast('Medical');
+                return false;
+              "
+              >Medical</a
+            >
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_pages">Səhifələr</h4>
+            <a
+              href="#"
+              onclick="
+                navTo('home');
+                return false;
+              "
+              data-i18n="nav_home"
+              >Əsas Səhifə</a
+            >
+            <a
+              href="#"
+              onclick="
+                navTo('about');
+                return false;
+              "
+              data-i18n="nav_about"
+              >Haqqımızda</a
+            >
+            <a
+              href="#"
+              onclick="
+                navTo('leadership');
+                return false;
+              "
+              data-i18n="nav_leadership"
+              >Rəhbərlik</a
+            >
+            <a
+              href="#"
+              onclick="
+                navTo('media');
+                return false;
+              "
+              data-i18n="nav_media"
+              >Media</a
+            >
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="nav_contact">Əlaqə</h4>
+            <a href="#">+994 12 555 00 00</a>
+            <a href="#">info@medlab.az</a>
+            <a href="#" data-i18n="contact_address_val">Bakı, Azərbaycan</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span data-i18n="footer_copy">© 2026 Medlab Medical Group. Bütün hüquqlar qorunur.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Translations
+      const translations = {
+        az: {
+          brand: 'Medlab Medical Group',
+          nav_home: 'Əsas Səhifə',
+          nav_about: 'Haqqımızda',
+          nav_companies: 'Şirkətlər',
+          nav_leadership: 'Rəhbərlik',
+          nav_media: 'Media',
+          nav_contact: 'Əlaqə',
+          hero_badge: 'Sağlamlığa İnkişaf',
+          hero_title: 'Səhiyyəni Yeniliklər və Keyfiyyətlə Dəyişirik',
+          hero_subtitle:
+            'Medlab Medical Group diaqnostika, kliniki xidmətlər və tibbi texnologiyalar sahəsində innovativ həllər təqdim edən aparıcı səhiyyə holdinq şirkətidir.',
+          hero_btn_about: 'Haqqımızda',
+          hero_btn_contact: 'Əlaqə',
+          stat_comp: 'Əsas Şirkət',
+          stat_loc: 'Filial & Klinik',
+          stat_staff: 'İşçi Sayı',
+          stat_sup: 'Dəstək',
+          sec_comp_label: 'Bizim Şirkətlər',
+          sec_comp_title: 'Əsas Alt Şirkətlər',
+          sec_comp_desc: 'Səhiyyənin hər sahəsində peşəkar xidmət göstərən qrup şirkətlərimiz.',
+          desc_medsun:
+            'Müasir avadanlıqlar və peşəkar həkimlərlə təchiz olunmuş geniş klinikalar şəbəkəsi.',
+          desc_medlab:
+            'Beynəlxalq standartlara cavab verən yüksək dəqiqlikli diaqnostika və laboratoriya xidmətləri.',
+          desc_medical:
+            'Ümumi tibbi xidmətlər, sağlamlıq yoxlamaları və fərdi müalicə proqramları təqdim edən marka.',
+          btn_more: 'Ətraflı Bax',
+          mvv_label: 'Dəyərlərimiz',
+          mvv_title: 'Missiya, Vizyon və Dəyərlər',
+          mission_title: 'Missiya',
+          mission_desc: 'Hər kəs üçün əlçatan, keyfiyyətli və yenilikçi tibbi xidmət göstərmək.',
+          vision_title: 'Vizyon',
+          vision_desc: 'Regional lider və etibarlı səhiyyə partnyoru olmaq.',
+          values_title: 'Dəyərlər',
+          values_desc: 'Dürüstlük, peşəkarlıq, xəstə mərkəzli yanaşma və fasiləsiz innovasiya.',
+          leaders_label: 'Rəhbərlik',
+          leaders_title: 'İdarəetmə Komandası',
+          l1_name: 'Dr. Əli Hüseynov',
+          l1_role: 'Baş Direktor',
+          l1_bio:
+            '20+ illik səhiyyə idarəetməsi təcrübəsi ilə şirkətimizin strateji inkişafını idarə edir.',
+          l2_name: 'Leyla Quliyeva',
+          l2_role: 'Əməliyyat Direktoru',
+          l2_bio:
+            'Bütün filialların fəaliyyətini və əməliyyat proseslərini səmərəli şəkildə idarə edir.',
+          l3_name: 'Dr. Ramin Məmmədov',
+          l3_role: 'Tibbi Direktor',
+          l3_bio: 'Klinik keyfiyyət və tibbi standartların təmin olunması üzrə mütəxəssis.',
+          about_hero_title: 'Medlab Medical Group Haqqında',
+          about_hero_subtitle:
+            '2012-ci ildən etibarən səhiyyənin inkişafına töhfə verən, innovasiya və etibar əsasında qurulmuş lider holdinq qrupu.',
+          history_title: 'Tarixçə',
+          history_desc:
+            '2012-ci ildə Bakıda kiçik laboratoriya olaraq fəaliyyətə başladıq. Qısa müddətdə klinikalar, tibbi avadanlıq və diaqnostika sahəsində genişləndik. Bu gün 3 əsas şirkətimiz ilə minlərlə xəstəyə xidmət göstəririk.',
+          achieve_title: 'Nailiyyətlər',
+          achieve_desc:
+            'ISO 15189 və beynəlxalq keyfiyyət sertifikatlarına sahibik. Ölkə üzrə 50+ nöqtədə xidmət göstəririk. İllik 1 milyon+ diaqnostik test aparılır.',
+          lead_hero_title: 'İdarəetmə və Rəhbərlik',
+          lead_hero_subtitle:
+            'Səhiyyə sahəsində zəngin təcrübəyə malik, şirkətimizin strateji hədəflərini həyata keçirən peşəkar komanda.',
+          media_hero_title: 'Xəbərlər və Yeniliklər',
+          media_hero_subtitle:
+            'Şirkətimizin son uğurları, tədbirləri və media məlumatları ilə tanış olun.',
+          news1_img: 'Yeni Filial Açılışı',
+          news1_tag: 'XƏBƏR',
+          news1_title: 'Bakıda Yeni Medlab Laboratoriya Filialı Açıldı',
+          news1_date: '12 Aprel, 2026',
+          news2_img: 'Tibbi Konfrans',
+          news2_tag: 'TƏDBİR',
+          news2_title: 'Medsun Klinikaları İllik Səhiyyə Sammitinə Ev Sahibliyi Etdi',
+          news2_date: '28 Mart, 2026',
+          news3_img: 'Texnologiya',
+          news3_tag: 'İNNOVASİYA',
+          news3_title: 'Süni İntellekt Dəstəkli Diaqnostika Sistemləri Tətbiq Olundu',
+          news3_date: '10 Mart, 2026',
+          gallery_title: 'Foto Qalereya',
+          g1: 'Klinika Daxili',
+          g2: 'Laboratoriya',
+          g3: 'Komanda',
+          g4: 'Avadanlıq',
+          contact_hero_title: 'Bizimlə Əlaqə',
+          contact_hero_subtitle:
+            'Suallarınız, təklifləriniz və ya əməkdaşlıq məsələlərində bizimlə əlaqə saxlayın.',
+          form_title: 'Mesaj Göndər',
+          form_name: 'Ad, Soyad',
+          form_email: 'E-poçt',
+          form_msg: 'Mesaj',
+          btn_send: 'Göndər',
+          contact_phone: 'Telefon',
+          contact_email: 'E-poçt',
+          contact_address: 'Ünvan',
+          contact_address_val: 'Bakı, Azərbaycan, Nəsimi rayonu, Əsas küçə 12',
+          map_placeholder: '📍 Xəritə Yerləşdirməsi',
+          footer_desc: 'Səhiyyənin inkişafı və keyfiyyətli xidmət üçün daim yanınızdayıq.',
+          footer_comp: 'Şirkətlər',
+          footer_pages: 'Səhifələr',
+          footer_copy: '© 2026 Medlab Medical Group. Bütün hüquqlar qorunur.',
+        },
+        ru: {
+          brand: 'Medlab Medical Group',
+          nav_home: 'Главная',
+          nav_about: 'О Нас',
+          nav_companies: 'Компании',
+          nav_leadership: 'Руководство',
+          nav_media: 'Медиа',
+          nav_contact: 'Контакты',
+          hero_badge: 'Развитие Здравоохранения',
+          hero_title: 'Меняем медицину с помощью инноваций и качества',
+          hero_subtitle:
+            'Medlab Medical Group — ведущая медицинская холдинговая компания, предоставляющая инновационные решения в области диагностики, клинических услуг и медицинских технологий.',
+          hero_btn_about: 'О Нас',
+          hero_btn_contact: 'Контакты',
+          stat_comp: 'Основные компании',
+          stat_loc: 'Филиалы и клиники',
+          stat_staff: 'Сотрудников',
+          stat_sup: 'Поддержка',
+          sec_comp_label: 'Наши компании',
+          sec_comp_title: 'Основные дочерние компании',
+          sec_comp_desc:
+            'Группа компаний, предоставляющая профессиональные услуги во всех сферах здравоохранения.',
+          desc_medsun:
+            'Широкая сеть клиник, оснащенных современным оборудованием и профессиональными врачами.',
+          desc_medlab:
+            'Высокоточные диагностические и лабораторные услуги, соответствующие международным стандартам.',
+          desc_medical:
+            'Бренд, предлагающий общие медицинские услуги, проверки здоровья и индивидуальные программы лечения.',
+          btn_more: 'Подробнее',
+          mvv_label: 'Наши ценности',
+          mvv_title: 'Миссия, Видение и Ценности',
+          mission_title: 'Миссия',
+          mission_desc:
+            'Оказывать доступных, качественных и инновационных медицинских услуг для каждого.',
+          vision_title: 'Видение',
+          vision_desc: 'Стать региональным лидером и надежным партнером в сфере здравоохранения.',
+          values_title: 'Ценности',
+          values_desc:
+            'Честность, профессионализм, ориентация на пациента и непрерывные инновации.',
+          leaders_label: 'Руководство',
+          leaders_title: 'Команда управления',
+          l1_name: 'Д-р Али Гусейнов',
+          l1_role: 'Генеральный директор',
+          l1_bio:
+            'Управляет стратегическим развитием компании, имея более 20 лет опыта в управлении здравоохранением.',
+          l2_name: 'Лейла Кулиева',
+          l2_role: 'Операционный директор',
+          l2_bio: 'Эффективно управляет деятельностью всех филиалов и операционными процессами.',
+          l3_name: 'Д-р Рамин Мамедов',
+          l3_role: 'Медицинский директор',
+          l3_bio: 'Эксперт по обеспечению клинического качества и медицинских стандартов.',
+          about_hero_title: 'О Medlab Medical Group',
+          about_hero_subtitle:
+            'Ведущая холдинговая группа, основанная на инновациях и доверии, вносящая вклад в развитие здравоохранения с 2012 года.',
+          history_title: 'История',
+          history_desc:
+            'Мы начали деятельность как небольшая лаборатория в Баку в 2012 году. Вскоре расширились в сфере клиник, оборудования и диагностики. Сегодня мы обслуживаем тысячи пациентов через 3 основные компании.',
+          achieve_title: 'Достижения',
+          achieve_desc:
+            'Имеем сертификаты ISO 15189 и международные сертификаты качества. Предоставляем услуги в 50+ точках по стране. Ежегодно проводится более 1 миллиона диагностических тестов.',
+          lead_hero_title: 'Управление и Руководство',
+          lead_hero_subtitle:
+            'Профессиональная команда с богатым опытом в здравоохранении, реализующая стратегические цели нашей компании.',
+          media_hero_title: 'Новости и Обновления',
+          media_hero_subtitle:
+            'Ознакомьтесь с последними достижениями, мероприятиями и информацией нашей компании.',
+          news1_img: 'Открытие филиала',
+          news1_tag: 'НОВОСТЬ',
+          news1_title: 'Открылся новый филиал Medlab Laboratory в Баку',
+          news1_date: '12 апреля, 2026',
+          news2_img: 'Медицинская конференция',
+          news2_tag: 'МЕРОПРИЯТИЕ',
+          news2_title: 'Клиники Medsun провели Ежегодный саммит здравоохранения',
+          news2_date: '28 марта, 2026',
+          news3_img: 'Технологии',
+          news3_tag: 'ИННОВАЦИИ',
+          news3_title: 'Внедрены системы диагностики с поддержкой искусственного интеллекта',
+          news3_date: '10 марта, 2026',
+          gallery_title: 'Фотогалерея',
+          g1: 'Интерьер клиники',
+          g2: 'Лаборатория',
+          g3: 'Команда',
+          g4: 'Оборудование',
+          contact_hero_title: 'Свяжитесь с нами',
+          contact_hero_subtitle:
+            'Свяжитесь с нами по любым вопросам, предложениям или сотрудничеству.',
+          form_title: 'Отправить сообщение',
+          form_name: 'Имя, Фамилия',
+          form_email: 'Электронная почта',
+          form_msg: 'Сообщение',
+          btn_send: 'Отправить',
+          contact_phone: 'Телефон',
+          contact_email: 'Электронная почта',
+          contact_address: 'Адрес',
+          contact_address_val: 'Баку, Азербайджан, Насиминский район, Главная улица 12',
+          map_placeholder: '📍 Местоположение на карте',
+          footer_desc: 'Мы всегда рядом для развития здравоохранения и качественного обслуживания.',
+          footer_comp: 'Компании',
+          footer_pages: 'Страницы',
+          footer_copy: '© 2026 Medlab Medical Group. Все права защищены.',
+        },
+        en: {
+          brand: 'Medlab Medical Group',
+          nav_home: 'Home',
+          nav_about: 'About Us',
+          nav_companies: 'Companies',
+          nav_leadership: 'Leadership',
+          nav_media: 'Media',
+          nav_contact: 'Contact',
+          hero_badge: 'Healthcare Advancement',
+          hero_title: 'Transforming Healthcare Through Innovation & Quality',
+          hero_subtitle:
+            'Medlab Medical Group is a premier healthcare holding company delivering innovative solutions in diagnostics, clinical services, and medical technology.',
+          hero_btn_about: 'About Us',
+          hero_btn_contact: 'Contact',
+          stat_comp: 'Main Companies',
+          stat_loc: 'Branches & Clinics',
+          stat_staff: 'Staff Members',
+          stat_sup: 'Support',
+          sec_comp_label: 'Our Companies',
+          sec_comp_title: 'Core Subsidiaries',
+          sec_comp_desc:
+            'Group companies delivering professional services across every aspect of healthcare.',
+          desc_medsun:
+            'A wide network of clinics equipped with modern facilities and professional medical staff.',
+          desc_medlab:
+            'High-precision diagnostic and laboratory services meeting international quality standards.',
+          desc_medical:
+            'A brand offering general medical services, health checkups, and personalized treatment programs.',
+          btn_more: 'Learn More',
+          mvv_label: 'Our Values',
+          mvv_title: 'Mission, Vision & Values',
+          mission_title: 'Mission',
+          mission_desc:
+            'To provide accessible, high-quality, and innovative healthcare services to everyone.',
+          vision_title: 'Vision',
+          vision_desc: 'To become a regional leader and trusted healthcare partner.',
+          values_title: 'Values',
+          values_desc:
+            'Integrity, professionalism, patient-centered approach, and continuous innovation.',
+          leaders_label: 'Leadership',
+          leaders_title: 'Management Team',
+          l1_name: 'Dr. Ali Huseynov',
+          l1_role: 'Chief Executive Officer',
+          l1_bio:
+            'Leads the strategic development of our company with 20+ years of healthcare management experience.',
+          l2_name: 'Leyla Guliyeva',
+          l2_role: 'Chief Operating Officer',
+          l2_bio: 'Efficiently manages operations and performance across all branch networks.',
+          l3_name: 'Dr. Ramin Mammadov',
+          l3_role: 'Chief Medical Officer',
+          l3_bio: 'Expert in clinical quality assurance and medical standards implementation.',
+          about_hero_title: 'About Medlab Medical Group',
+          about_hero_subtitle:
+            'A leading holding group built on innovation and trust, contributing to healthcare advancement since 2012.',
+          history_title: 'History',
+          history_desc:
+            'We started as a small laboratory in Baku in 2012. We quickly expanded into clinics, medical devices, and diagnostics. Today, we serve thousands of patients across our 3 core companies.',
+          achieve_title: 'Achievements',
+          achieve_desc:
+            'We hold ISO 15189 and international quality certifications. Operating in 50+ locations nationwide. Conducting over 1 million diagnostic tests annually.',
+          lead_hero_title: 'Management & Leadership',
+          lead_hero_subtitle:
+            "A professional team with rich healthcare experience executing our company's strategic goals.",
+          media_hero_title: 'News & Updates',
+          media_hero_subtitle:
+            'Stay updated with our latest achievements, events, and media releases.',
+          news1_img: 'New Branch Opening',
+          news1_tag: 'NEWS',
+          news1_title: 'New Medlab Laboratory Branch Opens in Baku',
+          news1_date: 'April 12, 2026',
+          news2_img: 'Medical Conference',
+          news2_tag: 'EVENT',
+          news2_title: 'Medsun Clinics Hosts Annual Healthcare Summit',
+          news2_date: 'March 28, 2026',
+          news3_img: 'Technology',
+          news3_tag: 'INNOVATION',
+          news3_title: 'AI-Assisted Diagnostic Systems Implemented',
+          news3_date: 'March 10, 2026',
+          gallery_title: 'Photo Gallery',
+          g1: 'Clinic Interior',
+          g2: 'Laboratory',
+          g3: 'Our Team',
+          g4: 'Equipment',
+          contact_hero_title: 'Contact Us',
+          contact_hero_subtitle:
+            'Reach out to us with questions, suggestions, or partnership inquiries.',
+          form_title: 'Send Message',
+          form_name: 'Full Name',
+          form_email: 'Email Address',
+          form_msg: 'Message',
+          btn_send: 'Send Message',
+          contact_phone: 'Phone',
+          contact_email: 'Email',
+          contact_address: 'Address',
+          contact_address_val: 'Baku, Azerbaijan, Nasimi District, Main Street 12',
+          map_placeholder: '📍 Map Integration',
+          footer_desc: 'We are always by your side for healthcare advancement and quality service.',
+          footer_comp: 'Companies',
+          footer_pages: 'Pages',
+          footer_copy: '© 2026 Medlab Medical Group. All rights reserved.',
+        },
+      };
+      function setLanguage(lang) {
+        localStorage.setItem('lang', lang);
+        applyLanguage(lang);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('lang') || 'az';
+        applyLanguage(savedLang);
+      });
+      let currentLang = 'az';
+
+      function setLang(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[lang][key]) {
+            el.textContent = translations[lang][key];
+          }
+        });
+        document.querySelectorAll('.lang-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+        });
+      }
+
+      // Routing & Pages
+      function navTo(page) {
+        document.querySelectorAll('.page').forEach((p) => {
+          p.classList.remove('active');
+          p.style.display = 'none';
+        });
+        const target = document.getElementById('page-' + page);
+        target.style.display = 'block';
+        setTimeout(() => target.classList.add('active'), 10);
+
+        document.querySelectorAll('.nav-link[data-page], .mobile-link[data-page]').forEach((l) => {
+          l.classList.toggle('active', l.dataset.page === page);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        closeMobile();
+        initFade();
+      }
+
+      // Mobile Menu
+      function toggleMobile() {
+        const menu = document.getElementById('mobileMenu');
+        const toggle = document.querySelector('.mobile-toggle');
+        menu.classList.toggle('active');
+        toggle.classList.toggle('active');
+      }
+      function closeMobile() {
+        document.getElementById('mobileMenu').classList.remove('active');
+        document.querySelector('.mobile-toggle').classList.remove('active');
+      }
+      function toggleMobileSub(el) {
+        const sub = el.querySelector('.mobile-sub');
+        if (!sub) return;
+        const open = el.classList.toggle('open');
+        sub.style.display = open ? 'block' : 'none';
+      }
+
+      // Toast
+      function showToast(msg) {
+        let t = document.getElementById('toast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'toast';
+          t.style.cssText =
+            'position:fixed;bottom:24px;right:24px;background:var(--text-dark);color:#fff;padding:12px 20px;border-radius:10px;font-size:.9rem;box-shadow:0 8px 20px rgba(0,0,0,.2);z-index:3000;transition:all .3s ease;transform:translateY(20px);opacity:0';
+          document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        t.style.transform = 'translateY(0)';
+        t.style.opacity = '1';
+        setTimeout(() => {
+          t.style.transform = 'translateY(20px)';
+          t.style.opacity = '0';
+        }, 3000);
+      }
+
+      // Sticky header & scroll effects
+      window.addEventListener('scroll', () => {
+        document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
+      });
+
+      // Fade animations
+      function initFade() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) e.target.classList.add('visible');
+            });
+          },
+          { threshold: 0.1 },
+        );
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setLang('az');
+        navTo('home');
+        initFade();
+      });
+    </script>
+  </body>
+</html>

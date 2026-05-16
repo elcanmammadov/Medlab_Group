@@ -1,0 +1,15 @@
+﻿User-agent: *
+Allow: /
+
+# Block admin panel and API from indexing
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /uploads/
+
+# Allow important static assets
+Allow: /css/
+Allow: /js/
+Allow: /image/
+
+Sitemap: https://medlabgroup.org/sitemap.xml

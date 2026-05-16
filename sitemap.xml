@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
+  <url>
+    <loc>https://medlabgroup.org/</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/?lang=en"/>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://medlabgroup.org/about.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/about.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/about.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/about.html?lang=en"/>
+  </url>
+
+  <!-- Companies listing -->
+  <url>
+    <loc>https://medlabgroup.org/companies.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/companies.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/companies.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/companies.html?lang=en"/>
+  </url>
+
+  <!-- Medsun Clinics -->
+  <url>
+    <loc>https://medlabgroup.org/medsun.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/medsun.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/medsun.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/medsun.html?lang=en"/>
+  </url>
+
+  <!-- Medlab Laboratory -->
+  <url>
+    <loc>https://medlabgroup.org/medlab.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/medlab.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/medlab.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/medlab.html?lang=en"/>
+  </url>
+
+  <!-- Medlab Medical -->
+  <url>
+    <loc>https://medlabgroup.org/medical.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/medical.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/medical.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/medical.html?lang=en"/>
+  </url>
+
+  <!-- Leadership -->
+  <url>
+    <loc>https://medlabgroup.org/leadership.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/leadership.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/leadership.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/leadership.html?lang=en"/>
+  </url>
+
+  <!-- Media -->
+  <url>
+    <loc>https://medlabgroup.org/media.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/media.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/media.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/media.html?lang=en"/>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://medlabgroup.org/contact.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="az" href="https://medlabgroup.org/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://medlabgroup.org/contact.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medlabgroup.org/contact.html?lang=en"/>
+  </url>
+
+</urlset>

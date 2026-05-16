@@ -1,0 +1,249 @@
+﻿<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO (updated dynamically by js/seo.js after article loads) -->
+    <title>Xəbər | Medlab Medical Group</title>
+    <meta
+      name="description"
+      content="Medlab Medical Group-dan son xəbər. Azərbaycanda tibb, sağlamlıq və klinika yenilikləri."
+    />
+    <meta
+      name="keywords"
+      content="Medlab xəbər, tibbi yeniliklər, Azərbaycan tibb xəbərləri"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Medlab Medical Group" />
+    <meta name="theme-color" content="#1E88E5" />
+
+    <!-- Open Graph (updated dynamically) -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Medlab Medical Group" />
+    <meta property="og:title" content="Xəbər | Medlab Medical Group" />
+    <meta
+      property="og:description"
+      content="Medlab Medical Group-dan son xəbər."
+    />
+    <meta
+      property="og:image"
+      content="https://medlabgroup.org/image/medlab-logo.png"
+    />
+    <meta property="og:image:alt" content="Medlab Medical Group Xəbər" />
+    <meta
+      property="og:url"
+      content="https://medlabgroup.org/news-detail.html"
+    />
+    <meta property="og:locale" content="az_AZ" />
+
+    <!-- Twitter Card (updated dynamically) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xəbər | Medlab Medical Group" />
+    <meta
+      name="twitter:description"
+      content="Medlab Medical Group-dan son xəbər."
+    />
+    <meta
+      name="twitter:image"
+      content="https://medlabgroup.org/image/medlab-logo.png"
+    />
+
+    <!-- Article schema (updated dynamically by seo.js) -->
+    <script type="application/ld+json" id="newsArticleSchema">
+      {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "Xəbər",
+        "publisher": {
+          "@type": "MedicalOrganization",
+          "name": "Medlab Medical Group",
+          "url": "https://medlabgroup.org",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://medlabgroup.org/image/medlab-logo.png"
+          }
+        }
+      }
+    </script>
+
+    <!-- Canonical (updated dynamically) -->
+    <link
+      rel="canonical"
+      href="https://medlabgroup.org/news-detail.html"
+      id="canonicalLink"
+    />
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/png" href="/image/medlab-logo.png" />
+    <link rel="apple-touch-icon" href="/image/medlab-logo.png" /> -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.18/index.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-text">Medlab Group</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">
+            <span data-i18n="nav_home">Əsas Səhifə</span>
+          </a>
+          <a href="about.html" class="nav-link">
+            <span data-i18n="nav_about">Haqqımızda</span>
+          </a>
+          <div class="nav-link dropdown">
+            <span data-i18n="nav_companies" style="cursor: pointer"
+              >Şirkətlər</span
+            >
+            <div class="dropdown-menu">
+              <a href="medsun.html" class="dropdown-item">
+                Medsun Klinikaları
+              </a>
+              <a href="medlab.html" class="dropdown-item">
+                Medlab Laboratoriya
+              </a>
+              <a href="medical.html" class="dropdown-item"> Medlab Medical </a>
+            </div>
+          </div>
+          <a href="leadership.html" class="nav-link">
+            <span data-i18n="nav_leadership">Rəhbərlik</span>
+          </a>
+          <a href="media.html" class="nav-link">
+            <span data-i18n="nav_media">Media</span>
+          </a>
+          <a href="contact.html" class="nav-link">
+            <span data-i18n="nav_contact">Əlaqə</span>
+          </a>
+        </nav>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" onclick="setLang('az')">AZ</button>
+          <button class="lang-btn" onclick="setLang('ru')">RU</button>
+          <button class="lang-btn" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" style="min-height: auto; padding: 40px 20px 28px">
+        <div class="container" style="text-align: center; max-width: 800px">
+          <div class="hero-badge">
+            <div
+              style="
+                width: 8px;
+                height: 8px;
+                background: var(--primary);
+                border-radius: 50%;
+              "
+            ></div>
+            <span data-i18n="nav_media">Media</span>
+          </div>
+          <h1 id="newsTitle">Xəbər</h1>
+          <p id="newsDate" style="color: var(--text-medium)"></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container" style="max-width: 900px">
+          <a
+            href="media.html"
+            class="btn btn-secondary"
+            style="margin-bottom: 18px"
+            >← Geri</a
+          >
+          <div class="news-detail" id="newsDetail"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-backdrop" data-close="true"></div>
+      <button
+        class="lb-arrow lb-prev"
+        id="lightboxPrev"
+        type="button"
+        aria-label="Əvvəlki"
+      >
+        &#8249;
+      </button>
+      <img class="lightbox-img" id="lightboxImg" alt="" />
+      <button
+        class="lb-arrow lb-next"
+        id="lightboxNext"
+        type="button"
+        aria-label="Növbəti"
+      >
+        &#8250;
+      </button>
+      <button
+        class="lightbox-close"
+        id="lightboxClose"
+        type="button"
+        aria-label="Close"
+      >
+        ×
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3 style="color: var(--white); margin-bottom: 8px">
+              Medlab Medical Group
+            </h3>
+            <p data-i18n="footer_desc">
+              Səhiyyə sahəsində etibarlı həll və innovativ xidmətlər təqdim edən
+              lider holdinq.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_product">Məhsullar</h4>
+            <a href="medsun.html" data-i18n="footer_product_medsun"
+              >Medsun Klinikaları</a
+            >
+            <a href="medlab.html" data-i18n="footer_product_medlab"
+              >Medlab Laboratoriya</a
+            >
+            <a href="medical.html" data-i18n="footer_product_medical"
+              >Medlab Medical</a
+            >
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_company">Şirkət</h4>
+            <a href="about.html" data-i18n="footer_company_about">Haqqımızda</a>
+            <a href="leadership.html" data-i18n="footer_company_leadership"
+              >Rəhbərlik</a
+            >
+            <a href="media.html" data-i18n="footer_company_media">Media</a>
+            <a href="contact.html" data-i18n="footer_company_contact">Əlaqə</a>
+          </div>
+          <div class="footer-col">
+            <h4 data-i18n="footer_legal">Hüquqi</h4>
+            <a href="#" data-i18n="footer_legal_privacy">Gizlilik Siyasəti</a>
+            <a href="#" data-i18n="footer_legal_terms">İstifadə Şərtləri</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p data-i18n="footer_copyright">
+            © 2024 Medlab Medical Group. Bütün hüquqlar qorunur.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/site-api.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/seo.js"></script>
+    <script src="js/news-detail.js"></script>
+  </body>
+</html>

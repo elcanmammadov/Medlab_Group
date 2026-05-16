@@ -1,0 +1,2461 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - Medlab Medical Group</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fa;
+      }
+
+      /* Login */
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      .login-box {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+      }
+      .login-box h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 500;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+      .btn-primary {
+        background: #667eea;
+        color: white;
+        width: 100%;
+      }
+      .btn-sm.btn-primary {
+        width: auto;
+      }
+      .btn-primary:hover {
+        background: #5568d3;
+      }
+      .btn-secondary {
+        background: #e2e8f0;
+        color: #2d3748;
+      }
+      .btn-secondary:hover {
+        background: #cbd5e0;
+      }
+      .btn-success {
+        background: #48bb78;
+        color: white;
+      }
+      .btn-danger {
+        background: #f56565;
+        color: white;
+      }
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .select {
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        background: white;
+      }
+      .repeater {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .repeater-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 10px;
+        align-items: center;
+      }
+      @media (max-width: 520px) {
+        .repeater-row {
+          grid-template-columns: 1fr;
+        }
+        .repeater-row .btn {
+          width: fit-content;
+        }
+      }
+      .error-msg {
+        color: #f56565;
+        text-align: center;
+        margin-top: 10px;
+        display: none;
+      }
+      .success-msg {
+        color: #48bb78;
+        text-align: center;
+        margin-top: 10px;
+        display: none;
+      }
+
+      /* Dashboard */
+      .dashboard {
+        display: none;
+      }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 250px;
+        background: #2d3748;
+        color: white;
+        padding: 20px 0;
+        overflow-y: auto;
+        z-index: 100;
+      }
+      .sidebar h3 {
+        padding: 20px;
+        border-bottom: 1px solid #4a5568;
+        margin-bottom: 20px;
+      }
+      .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        color: #cbd5e0;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      .sidebar a:hover,
+      .sidebar a.active {
+        background: #4a5568;
+        color: white;
+      }
+      .main-content {
+        margin-left: 250px;
+        padding: 30px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      .header h1 {
+        color: #2d3748;
+      }
+
+      /* Cards */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .stat-card h3 {
+        font-size: 28px;
+        color: #2d3748;
+        margin-bottom: 5px;
+      }
+      .stat-card p {
+        color: #718096;
+        font-size: 14px;
+      }
+
+      /* Table */
+      .table-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      th {
+        background: #f7fafc;
+        color: #4a5568;
+        font-weight: 600;
+      }
+      tr:hover {
+        background: #f7fafc;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal.active {
+        display: flex;
+      }
+      .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .modal-header h2 {
+        color: #2d3748;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #718096;
+      }
+      .lang-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+      }
+      .lang-tab {
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        cursor: pointer;
+        background: #f7fafc;
+      }
+      .lang-tab.active {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+      }
+      .lang-content {
+        display: none;
+      }
+      .lang-content.active {
+        display: block;
+      }
+      .lang-content .form-group {
+        margin-bottom: 15px;
+      }
+
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        z-index: 2000;
+        display: none;
+        animation: slideIn 0.3s ease;
+      }
+      .toast.success {
+        background: #48bb78;
+      }
+      .toast.error {
+        background: #f56565;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 100%;
+          position: relative;
+        }
+        .main-content {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+      <div class="login-box">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="loginEmail" required placeholder="admin@medlab.az" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required placeholder="..." />
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <p class="error-msg" id="loginError"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+      <div class="sidebar">
+        <h3>Medlab Admin</h3>
+        <a href="#" class="active" onclick="showSection('home', this)">Dashboard</a>
+        <a href="#" onclick="showSection('companies', this)">Companies</a>
+        <a href="#" onclick="showSection('branches', this)">Branches</a>
+        <a href="#" onclick="showSection('doctors', this)">Doctors</a>
+        <a href="#" onclick="showSection('branch-services', this)">Branch Services</a>
+        <a href="#" onclick="showSection('leadership', this)">Leadership</a>
+        <a href="#" onclick="showSection('news', this)">News</a>
+        <a href="#" onclick="showSection('gallery', this)">Gallery</a>
+        <a href="#" onclick="showSection('hero-slider', this)">Hero Slider</a>
+        <a href="#" onclick="showSection('contacts', this)">Contact Messages</a>
+        <a href="#" onclick="logout()" style="border-top: 1px solid #4a5568; margin-top: 20px"
+          >Logout</a
+        >
+      </div>
+
+      <div class="main-content">
+        <!-- Home Section -->
+        <div class="section active" id="section-home">
+          <div class="header"><h1>Dashboard</h1></div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3 id="stat-companies">0</h3>
+              <p>Companies</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="stat-branches">0</h3>
+              <p>Branches</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="stat-leadership">0</h3>
+              <p>Leadership</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="stat-news">0</h3>
+              <p>News</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="stat-gallery">0</h3>
+              <p>Gallery</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="stat-doctors">0</h3>
+              <p>Doctors</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="stat-contacts">0</h3>
+              <p>Contact Messages</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Companies Section -->
+        <div class="section" id="section-companies">
+          <div class="header">
+            <h1>Manage Companies</h1>
+            <button class="btn btn-success" onclick="openModal('company')">+ Add Company</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Logo</th>
+                  <th>Name (AZ)</th>
+                  <th>Website</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="companiesTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Branches Section -->
+        <div class="section" id="section-branches">
+          <div class="header">
+            <h1>Manage Branches</h1>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+              <select
+                id="branchesCompanyFilter"
+                class="select"
+                onchange="loadBranches()"
+                style="min-width: 220px"
+              >
+                <option value="">All Companies</option>
+              </select>
+              <button class="btn btn-success" onclick="openBranchModal()">+ Add Branch</button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name (AZ)</th>
+                  <th>Phones</th>
+                  <th>Email</th>
+                  <th>Company</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="branchesTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Doctors Section -->
+        <div class="section" id="section-doctors">
+          <div class="header">
+            <h1>Manage Doctors</h1>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+              <select
+                id="doctorsCompanyFilter"
+                class="select"
+                onchange="onDoctorCompanyFilter()"
+                style="min-width: 180px"
+              >
+                <option value="">All Companies</option>
+              </select>
+              <select
+                id="doctorsBranchFilter"
+                class="select"
+                onchange="loadDoctors()"
+                style="min-width: 180px"
+              >
+                <option value="">All Branches</option>
+              </select>
+              <button class="btn btn-success" onclick="openModal('doctor')">+ Add Doctor</button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>Name</th>
+                  <th>Position (AZ)</th>
+                  <th>Branch</th>
+                  <th>Company</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="doctorsTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Leadership Section -->
+        <!-- Branch Services Section -->
+        <div class="section" id="section-branch-services">
+          <div class="header">
+            <h1>Manage Branch Services</h1>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+              <select
+                id="bsCompanyFilter"
+                class="select"
+                onchange="onBsCompanyFilter()"
+                style="min-width: 180px"
+              >
+                <option value="">All Companies</option>
+              </select>
+              <select
+                id="bsBranchFilter"
+                class="select"
+                onchange="loadBranchServices()"
+                style="min-width: 180px"
+              >
+                <option value="">All Branches</option>
+              </select>
+              <button class="btn btn-success" onclick="openModal('branchService')">
+                + Add Service
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name (AZ)</th>
+                  <th>Branch</th>
+                  <th>Company</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="branchServicesTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="section" id="section-leadership">
+          <div class="header">
+            <h1>Manage Leadership</h1>
+            <button class="btn btn-success" onclick="openModal('leader')">+ Add Leader</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>Name</th>
+                  <th>Position (AZ)</th>
+                  <th>Type</th>
+                  <th>Company</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leadershipTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="section" id="section-news">
+          <div class="header">
+            <h1>Manage News</h1>
+            <button class="btn btn-success" onclick="openModal('news')">+ Add News</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title (AZ)</th>
+                  <th>Date</th>
+                  <th>Images</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="newsTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="section" id="section-gallery">
+          <div class="header">
+            <h1>Manage Gallery</h1>
+            <button class="btn btn-success" onclick="openModal('gallery')">
+              + Add Gallery Item
+            </button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Preview</th>
+                  <th>Type</th>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="galleryTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Hero Slider Section -->
+        <div class="section" id="section-hero-slider">
+          <div class="header">
+            <h1>Hero Slider</h1>
+            <label class="btn btn-success" style="cursor: pointer">
+              + Şəkil əlavə et
+              <input
+                type="file"
+                id="heroSlideInput"
+                accept="image/*"
+                style="display: none"
+                multiple
+              />
+            </label>
+          </div>
+          <p style="color: #718096; margin-bottom: 16px; font-size: 0.9rem">
+            Şəkilləri sürükləyərək sıralarını dəyişə bilərsiniz. Aktiv/deaktiv etmək üçün göz
+            ikonuna basın.
+          </p>
+          <div
+            id="heroSlidesList"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+              gap: 16px;
+            "
+          ></div>
+        </div>
+
+        <!-- Contacts Section -->
+        <div class="section" id="section-contacts">
+          <div class="header"><h1>Contact Messages</h1></div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ad</th>
+                  <th>Telefon</th>
+                  <th>Tarix</th>
+                  <th>Status</th>
+                  <th>Əməliyyat</th>
+                </tr>
+              </thead>
+              <tbody id="contactsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Detail Modal -->
+    <div class="modal" id="messageModal">
+      <div class="modal-content" style="max-width: 520px">
+        <div class="modal-header">
+          <h2>Mesaj Detalları</h2>
+          <button class="close-btn" onclick="closeMessageModal()">&times;</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+            <div>
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: #718096;
+                  text-transform: uppercase;
+                  margin-bottom: 3px;
+                "
+              >
+                Ad Soyad
+              </div>
+              <div id="m_name" style="font-weight: 600; color: #2d3748"></div>
+            </div>
+            <div>
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: #718096;
+                  text-transform: uppercase;
+                  margin-bottom: 3px;
+                "
+              >
+                Telefon
+              </div>
+              <div id="m_phone" style="color: #2d3748"></div>
+            </div>
+            <div style="grid-column: 1/-1">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: #718096;
+                  text-transform: uppercase;
+                  margin-bottom: 3px;
+                "
+              >
+                E-poçt
+              </div>
+              <div id="m_email" style="color: #2d3748"></div>
+            </div>
+            <div style="grid-column: 1/-1">
+              <div
+                style="
+                  font-size: 11px;
+                  font-weight: 600;
+                  color: #718096;
+                  text-transform: uppercase;
+                  margin-bottom: 3px;
+                "
+              >
+                Tarix
+              </div>
+              <div id="m_date" style="color: #718096; font-size: 13px"></div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                color: #718096;
+                text-transform: uppercase;
+                margin-bottom: 6px;
+              "
+            >
+              Mesaj
+            </div>
+            <div
+              id="m_message"
+              style="
+                background: #f7fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 12px;
+                color: #2d3748;
+                white-space: pre-wrap;
+                line-height: 1.6;
+                min-height: 80px;
+              "
+            ></div>
+          </div>
+          <div>
+            <div
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                color: #718096;
+                text-transform: uppercase;
+                margin-bottom: 6px;
+              "
+            >
+              Status
+            </div>
+            <select id="m_status" class="select" style="width: 100%">
+              <option value="unread">Oxunmamış</option>
+              <option value="read">Oxundu</option>
+              <option value="replied">Cavablandırıldı</option>
+            </select>
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 4px">
+            <button class="btn btn-secondary" onclick="closeMessageModal()">Bağla</button>
+            <button
+              class="btn btn-danger btn-sm"
+              id="m_delete_btn"
+              onclick=""
+              style="margin-right: auto"
+            >
+              Sil
+            </button>
+            <button class="btn btn-primary" onclick="saveMessageStatus()">Yadda saxla</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Add/Edit -->
+    <div class="modal" id="formModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Add Item</h2>
+          <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
+        <form id="itemForm" enctype="multipart/form-data">
+          <div id="formFields"></div>
+          <button type="submit" class="btn btn-primary" style="margin-top: 20px">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = 'http://localhost:5000/api';
+      const BASE_URL = 'http://localhost:5000';
+      let token = localStorage.getItem('token');
+      let currentType = '';
+      let editId = null;
+      let companiesList = [];
+      let branchModalLockCompany = false;
+
+      if (token) showDashboard();
+
+      // Toast notification
+      function showToast(msg, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.className = `toast ${type}`;
+        toast.style.display = 'block';
+        setTimeout(() => (toast.style.display = 'none'), 3000);
+      }
+
+      // Login
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const res = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: document.getElementById('loginEmail').value,
+              password: document.getElementById('loginPassword').value,
+            }),
+          });
+          const data = await res.json();
+          if (data.success) {
+            token = data.data.token;
+            localStorage.setItem('token', token);
+            showDashboard();
+          } else {
+            const el = document.getElementById('loginError');
+            el.textContent = data.message;
+            el.style.display = 'block';
+          }
+        } catch (err) {
+          showToast('Connection error', 'error');
+        }
+      });
+
+      async function showDashboard() {
+        // Verify token is still valid
+        try {
+          const res = await fetch(`${API_URL}/auth/me`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const data = await res.json();
+          if (!data.success) {
+            // Token invalid or admin not found
+            localStorage.removeItem('token');
+            token = null;
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            const el = document.getElementById('loginError');
+            el.textContent = 'Session expired. Please login again.';
+            el.style.display = 'block';
+            return;
+          }
+        } catch (err) {
+          localStorage.removeItem('token');
+          token = null;
+          return;
+        }
+
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        await loadStats();
+        await loadCompaniesList();
+      }
+
+      function logout() {
+        localStorage.removeItem('token');
+        token = null;
+        location.reload();
+      }
+
+      function showSection(name, el) {
+        document.querySelectorAll('.section').forEach((s) => s.classList.remove('active'));
+        document.getElementById(`section-${name}`).classList.add('active');
+        document.querySelectorAll('.sidebar a').forEach((a) => a.classList.remove('active'));
+        if (el) el.classList.add('active');
+
+        if (name === 'companies') loadCompanies();
+        else if (name === 'branches') loadBranches();
+        else if (name === 'doctors') loadDoctors();
+        else if (name === 'branch-services') loadBranchServices();
+        else if (name === 'leadership') loadLeadership();
+        else if (name === 'news') loadNews();
+        else if (name === 'gallery') loadGallery();
+        else if (name === 'hero-slider') loadHeroSlides();
+        else if (name === 'contacts') loadContacts();
+      }
+
+      async function loadStats() {
+        const headers = { Authorization: `Bearer ${token}` };
+        try {
+          const endpoints = [
+            'companies',
+            'branches',
+            'leadership',
+            'news',
+            'gallery',
+            'contact',
+            'doctors',
+          ];
+          const results = await Promise.all(
+            endpoints.map((ep) => fetch(`${API_URL}/${ep}`, { headers }).then((r) => r.json())),
+          );
+          document.getElementById('stat-companies').textContent = results[0].count || 0;
+          document.getElementById('stat-branches').textContent = results[1].count || 0;
+          document.getElementById('stat-leadership').textContent = results[2].count || 0;
+          document.getElementById('stat-news').textContent = results[3].count || 0;
+          document.getElementById('stat-gallery').textContent = results[4].count || 0;
+          document.getElementById('stat-contacts').textContent = results[5].count || 0;
+          document.getElementById('stat-doctors').textContent = results[6].count || 0;
+        } catch (err) {
+          console.error('Stats error:', err);
+        }
+      }
+
+      function getAuthHeaders() {
+        return { Authorization: `Bearer ${token}` };
+      }
+
+      function imgSrc(path) {
+        return path ? `${BASE_URL}${path}` : '';
+      }
+
+      async function loadCompaniesList() {
+        try {
+          const res = await fetch(`${API_URL}/companies`, { headers: getAuthHeaders() });
+          const data = await res.json();
+          if (data.success) companiesList = data.data || [];
+          renderBranchesCompanyFilter();
+        } catch (err) {
+          // ignore
+        }
+      }
+
+      function renderBranchesCompanyFilter() {
+        const select = document.getElementById('branchesCompanyFilter');
+        if (!select) return;
+        const current = select.value || '';
+        select.innerHTML = `
+          <option value="">All Companies</option>
+          ${companiesList
+            .map((c) => `<option value="${c._id}">${c.name?.az || 'Company'}</option>`)
+            .join('')}
+        `;
+        select.value = current;
+
+        // Keep doctor company filter in sync
+        const docSel = document.getElementById('doctorsCompanyFilter');
+        if (docSel) {
+          const docCurrent = docSel.value || '';
+          docSel.innerHTML =
+            `<option value="">All Companies</option>` +
+            companiesList
+              .map((c) => `<option value="${c._id}">${c.name?.az || 'Company'}</option>`)
+              .join('');
+          docSel.value = docCurrent;
+        }
+
+        // Keep branch services company filter in sync
+        const bsSel = document.getElementById('bsCompanyFilter');
+        if (bsSel) {
+          const bsCurrent = bsSel.value || '';
+          bsSel.innerHTML =
+            `<option value="">All Companies</option>` +
+            companiesList
+              .map((c) => `<option value="${c._id}">${c.name?.az || 'Company'}</option>`)
+              .join('');
+          bsSel.value = bsCurrent;
+        }
+      }
+
+      async function onDoctorCompanyFilter() {
+        const companyId = document.getElementById('doctorsCompanyFilter')?.value || '';
+        const branchSel = document.getElementById('doctorsBranchFilter');
+        if (!branchSel) return;
+        if (!companyId) {
+          branchSel.innerHTML = '<option value="">All Branches</option>';
+        } else {
+          try {
+            const res = await fetch(
+              `${API_URL}/branches?company=${encodeURIComponent(companyId)}`,
+              { headers: getAuthHeaders() },
+            );
+            const data = await res.json();
+            branchSel.innerHTML =
+              '<option value="">All Branches</option>' +
+              (data.data || [])
+                .map((b) => `<option value="${b._id}">${b.name?.az || '-'}</option>`)
+                .join('');
+          } catch {
+            branchSel.innerHTML = '<option value="">All Branches</option>';
+          }
+        }
+        loadDoctors();
+      }
+
+      async function loadDoctors() {
+        const companyId = document.getElementById('doctorsCompanyFilter')?.value || '';
+        const branchId = document.getElementById('doctorsBranchFilter')?.value || '';
+        let url = `${API_URL}/doctors`;
+        const params = [];
+        if (companyId) params.push(`companyId=${encodeURIComponent(companyId)}`);
+        if (branchId) params.push(`branchId=${encodeURIComponent(branchId)}`);
+        if (params.length) url += '?' + params.join('&');
+        try {
+          const res = await fetch(url, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('doctorsTable').innerHTML = (data.data || [])
+            .map((d) => {
+              const fullName = [d.name, d.surname].filter(Boolean).join(' ');
+              const pos = d.position?.az || '-';
+              const branch = d.branchId?.name?.az || '-';
+              const company = d.companyId?.name?.az || '-';
+              return `
+                <tr>
+                  <td>${d.image ? `<img src="${BASE_URL}${d.image}" width="46" height="46" style="border-radius:50%;object-fit:cover;border:2px solid #e2e8f0" />` : '-'}</td>
+                  <td>${fullName || '-'}</td>
+                  <td>${pos}</td>
+                  <td>${branch}</td>
+                  <td>${company}</td>
+                  <td class="actions">
+                    <button class="btn btn-sm btn-success" onclick="editItem('doctor','${d._id}')">Edit</button>
+                    <button class="btn btn-sm btn-danger"  onclick="deleteItem('doctors','${d._id}')">Delete</button>
+                  </td>
+                </tr>`;
+            })
+            .join('');
+        } catch (err) {
+          showToast('Failed to load doctors', 'error');
+        }
+      }
+
+      function openCompanyBranches(companyId) {
+        showSection('branches');
+        const select = document.getElementById('branchesCompanyFilter');
+        if (select) select.value = companyId;
+        loadBranches(companyId);
+      }
+
+      function openBranchModal() {
+        const select = document.getElementById('branchesCompanyFilter');
+        const companyId = select ? select.value : '';
+        if (companyId) openModal('branch', null, { company: companyId }, { lockCompany: true });
+        else openModal('branch');
+      }
+
+      async function loadDoctorBranchOptions(preselectBranchId = '') {
+        const companyId = document.getElementById('doctorCompanySelect')?.value || '';
+        const branchSel = document.getElementById('doctorBranchSelect');
+        if (!branchSel) return;
+        if (!companyId) {
+          branchSel.innerHTML = '<option value="">Filial seç</option>';
+          return;
+        }
+        try {
+          const res = await fetch(`${API_URL}/branches?company=${encodeURIComponent(companyId)}`, {
+            headers: getAuthHeaders(),
+          });
+          const data = await res.json();
+          branchSel.innerHTML =
+            '<option value="">Filial seç</option>' +
+            (data.data || [])
+              .map(
+                (b) =>
+                  `<option value="${b._id}" ${String(b._id) === String(preselectBranchId) ? 'selected' : ''}>${b.name?.az || '-'}</option>`,
+              )
+              .join('');
+        } catch {
+          branchSel.innerHTML = '<option value="">Filial seç</option>';
+        }
+      }
+
+      function toggleLeaderCompanySelect() {
+        const typeEl = document.getElementById('leaderTypeSelect');
+        const group = document.getElementById('leaderCompanyGroup');
+        if (!typeEl || !group) return;
+        group.style.display = typeEl.value === 'company' ? '' : 'none';
+      }
+
+      // Load Companies
+      async function loadCompanies() {
+        try {
+          await loadCompaniesList();
+          document.getElementById('companiesTable').innerHTML = companiesList
+            .map(
+              (c) => `
+          <tr>
+            <td>${c.logo ? `<img src="${imgSrc(c.logo)}" width="50" style="border-radius:6px" />` : '-'}</td>
+            <td>${c.name?.az || '-'}</td>
+            <td>${c.website ? `<a href="${c.website}" target="_blank">${c.website}</a>` : '-'}</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-primary" onclick="openCompanyBranches('${c._id}')">Branches</button>
+              <button class="btn btn-sm btn-success" onclick="editItem('company', '${c._id}')">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteItem('companies', '${c._id}')">Delete</button>
+            </td>
+          </tr>
+        `,
+            )
+            .join('');
+        } catch (err) {
+          showToast('Failed to load companies', 'error');
+        }
+      }
+
+      // Load Branches
+      async function loadBranches(companyId = null) {
+        try {
+          const select = document.getElementById('branchesCompanyFilter');
+          const filterCompanyId = companyId !== null ? companyId : select ? select.value : '';
+          const url = filterCompanyId
+            ? `${API_URL}/branches?company=${encodeURIComponent(filterCompanyId)}`
+            : `${API_URL}/branches`;
+          const res = await fetch(url, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('branchesTable').innerHTML = data.data
+            .map(
+              (b) => `
+          <tr>
+            <td>${b.images && b.images.length > 0 ? `<img src="http://localhost:5000${b.images[0]}" width="40" height="40" style="border-radius:6px;object-fit:cover" />` : '-'}</td>
+            <td>${b.name?.az || '-'}</td>
+            <td>${b.phones && b.phones.length > 0 ? b.phones.map((p) => `<span style="display:block;font-size:12px">${p.number} <em style="color:#999">(${p.type})</em></span>`).join('') : b.phone || '-'}</td>
+            <td>${b.email || '-'}</td>
+            <td>${b.company?.name?.az || '-'}</td>
+            <td>${b.doctors?.length || 0} həkim</td>
+            <td>${b.images?.length || 0} şəkil</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="editItem('branch', '${b._id}')">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteItem('branches', '${b._id}')">Delete</button>
+            </td>
+          </tr>
+        `,
+            )
+            .join('');
+        } catch (err) {
+          showToast('Failed to load branches', 'error');
+        }
+      }
+
+      // Load Leadership
+      async function loadLeadership() {
+        try {
+          const res = await fetch(`${API_URL}/leadership`, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('leadershipTable').innerHTML = (data.data || [])
+            .map((l) => {
+              const companyName =
+                typeof l.companyId === 'object' ? l.companyId?.name?.az || '-' : '-';
+              const typeBadge =
+                l.type === 'global'
+                  ? `<span style="padding:2px 8px;border-radius:12px;font-size:12px;background:#667eea22;color:#667eea">Global</span>`
+                  : l.type === 'company'
+                    ? `<span style="padding:2px 8px;border-radius:12px;font-size:12px;background:#48bb7822;color:#2f855a">Şirkət</span>`
+                    : '-';
+              return `
+          <tr>
+            <td>${l.photo ? `<img src="${imgSrc(l.photo)}" width="50" style="border-radius:50%" />` : '-'}</td>
+            <td>${l.name || '-'}${l.surname ? ' ' + l.surname : ''}</td>
+            <td>${l.position?.az || '-'}</td>
+            <td>${typeBadge}</td>
+            <td>${l.type === 'company' ? companyName : '-'}</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="editItem('leader', '${l._id}')">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteItem('leadership', '${l._id}')">Delete</button>
+            </td>
+          </tr>
+        `;
+            })
+            .join('');
+        } catch (err) {
+          showToast('Failed to load leadership', 'error');
+        }
+      }
+
+      // Load News
+      async function loadNews() {
+        try {
+          const res = await fetch(`${API_URL}/news`, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('newsTable').innerHTML = (data.data || [])
+            .map(
+              (n) => `
+          <tr>
+            <td>${n.title?.az || '-'}</td>
+            <td>${n.date ? new Date(n.date).toLocaleDateString() : '-'}</td>
+            <td>${n.images?.length || 0}</td>
+            <td class="actions">
+              <button class="btn btn-sm btn-success" onclick="editItem('news', '${n._id}')">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteItem('news', '${n._id}')">Delete</button>
+            </td>
+          </tr>
+        `,
+            )
+            .join('');
+        } catch (err) {
+          showToast('Failed to load news', 'error');
+        }
+      }
+
+      // Load Gallery
+      async function loadGallery() {
+        try {
+          const res = await fetch(`${API_URL}/gallery`, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('galleryTable').innerHTML = (data.data || [])
+            .map((g) => {
+              const isVideo = g.type === 'video';
+              const thumbSrc = isVideo
+                ? ''
+                : (() => {
+                    if (Array.isArray(g.images) && g.images.length) return g.images[0];
+                    return g.image || '';
+                  })();
+              const imgCount = isVideo
+                ? 0
+                : Array.isArray(g.images)
+                  ? g.images.length
+                  : g.image
+                    ? 1
+                    : 0;
+              const preview = isVideo
+                ? `<a href="${g.videoUrl || '#'}" target="_blank" style="color:#667eea;font-size:0.85rem">▶ Video</a>`
+                : thumbSrc
+                  ? `<div style="position:relative;display:inline-block">
+                        <img src="${imgSrc(thumbSrc)}" width="50" height="40" style="border-radius:6px;object-fit:cover" />
+                        ${imgCount > 1 ? `<span style="position:absolute;bottom:2px;right:2px;background:rgba(0,0,0,0.6);color:#fff;font-size:9px;padding:1px 4px;border-radius:3px">${imgCount}</span>` : ''}
+                       </div>`
+                  : '-';
+              return `
+                <tr>
+                  <td>${preview}</td>
+                  <td><span style="padding:2px 8px;border-radius:4px;font-size:0.78rem;font-weight:600;background:${isVideo ? '#e8f5e9' : '#e3f2fd'};color:${isVideo ? '#2e7d32' : '#1565c0'}">${isVideo ? 'Video' : 'Image'}</span></td>
+                  <td>${g.title || '-'}</td>
+                  <td>${g.date ? new Date(g.date).toLocaleDateString() : '-'}</td>
+                  <td class="actions">
+                    <button class="btn btn-sm btn-success" onclick="editItem('gallery', '${g._id}')">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteItem('gallery', '${g._id}')">Delete</button>
+                  </td>
+                </tr>
+              `;
+            })
+            .join('');
+        } catch (err) {
+          showToast('Failed to load gallery', 'error');
+        }
+      }
+
+      // Load Branch Services
+      async function loadBranchServices() {
+        try {
+          const companyId = document.getElementById('bsCompanyFilter')?.value || '';
+          const branchId = document.getElementById('bsBranchFilter')?.value || '';
+          let url = `${API_URL}/branch-services`;
+          const params = [];
+          if (companyId) params.push(`company=${encodeURIComponent(companyId)}`);
+          if (branchId) params.push(`branch=${encodeURIComponent(branchId)}`);
+          if (params.length) url += '?' + params.join('&');
+
+          const res = await fetch(url, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('branchServicesTable').innerHTML = (data.data || [])
+            .map(
+              (s) => `
+              <tr>
+                <td>${s.image ? `<img src="${imgSrc(s.image)}" width="50" style="border-radius:6px" />` : '-'}</td>
+                <td>${s.name?.az || '-'}</td>
+                <td>${s.branch?.name?.az || '-'}</td>
+                <td>${s.branch?.company?.name?.az || '-'}</td>
+                <td class="actions">
+                  <button class="btn btn-sm btn-success" onclick="editItem('branchService', '${s._id}')">Edit</button>
+                  <button class="btn btn-sm btn-danger" onclick="deleteItem('branch-services', '${s._id}')">Delete</button>
+                </td>
+              </tr>
+            `,
+            )
+            .join('');
+        } catch (err) {
+          showToast('Failed to load branch services', 'error');
+        }
+      }
+
+      async function onBsCompanyFilter() {
+        const companyId = document.getElementById('bsCompanyFilter')?.value || '';
+        const branchSel = document.getElementById('bsBranchFilter');
+        if (!branchSel) return;
+        if (!companyId) {
+          branchSel.innerHTML = '<option value="">All Branches</option>';
+        } else {
+          try {
+            const res = await fetch(
+              `${API_URL}/branches?company=${encodeURIComponent(companyId)}`,
+              { headers: getAuthHeaders() },
+            );
+            const data = await res.json();
+            branchSel.innerHTML =
+              '<option value="">All Branches</option>' +
+              (data.data || [])
+                .map((b) => `<option value="${b._id}">${b.name?.az || '-'}</option>`)
+                .join('');
+          } catch {
+            branchSel.innerHTML = '<option value="">All Branches</option>';
+          }
+        }
+        loadBranchServices();
+      }
+
+      async function loadBsModalBranchOptions(preselectBranchId = '') {
+        const companyId = document.getElementById('bsModalCompanySelect')?.value || '';
+        const branchSel = document.getElementById('bsModalBranchSelect');
+        if (!branchSel) return;
+        if (!companyId) {
+          branchSel.innerHTML = '<option value="">Əvvəlcə şirkət seçin</option>';
+          return;
+        }
+        try {
+          const res = await fetch(`${API_URL}/branches?company=${encodeURIComponent(companyId)}`, {
+            headers: getAuthHeaders(),
+          });
+          const data = await res.json();
+          branchSel.innerHTML =
+            '<option value="">Filial seç</option>' +
+            (data.data || [])
+              .map(
+                (b) =>
+                  `<option value="${b._id}" ${String(b._id) === String(preselectBranchId) ? 'selected' : ''}>${b.name?.az || '-'}</option>`,
+              )
+              .join('');
+        } catch {
+          branchSel.innerHTML = '<option value="">Filial seç</option>';
+        }
+      }
+
+      function addBranchPhoneRow(number = '', type = 'mobile') {
+        const repeater = document.getElementById('phoneRepeater');
+        if (!repeater) return;
+        const row = document.createElement('div');
+        row.className = 'repeater-row phone-row';
+        const isOnline = type === 'online';
+        row.innerHTML = `
+          <input class="phone-number" placeholder="${isOnline ? 'https://...' : 'Nömrə'}" value="${number}" />
+          <select class="phone-type" onchange="onPhoneTypeChange(this)">
+            <option value="mobile"   ${type === 'mobile'   ? 'selected' : ''}>Mobil</option>
+            <option value="city"     ${type === 'city'     ? 'selected' : ''}>Şəhər</option>
+            <option value="whatsapp" ${type === 'whatsapp' ? 'selected' : ''}>WhatsApp</option>
+            <option value="online"   ${type === 'online'   ? 'selected' : ''}>Online qeydiyyat</option>
+          </select>
+          <button type="button" class="btn btn-sm btn-danger" onclick="removeBranchPhoneRow(this)">Sil</button>
+        `;
+        repeater.appendChild(row);
+      }
+
+      function removeBranchPhoneRow(btn) {
+        const row = btn?.closest?.('.phone-row');
+        if (!row) return;
+        const repeater = document.getElementById('phoneRepeater');
+        if (repeater && repeater.querySelectorAll('.phone-row').length > 1) {
+          row.remove();
+        }
+      }
+
+      function onPhoneTypeChange(select) {
+        const input = select?.closest?.('.phone-row')?.querySelector('.phone-number');
+        if (!input) return;
+        if (select.value === 'online') {
+          input.placeholder = 'https://...';
+        } else {
+          input.placeholder = 'Nömrə';
+        }
+      }
+
+      // ── Contact Messages ─────────────────────────────
+      const STATUS_COLORS = {
+        unread: { bg: '#fff3cd', color: '#856404', label: 'Oxunmamış' },
+        read: { bg: '#d1ecf1', color: '#0c5460', label: 'Oxundu' },
+        replied: { bg: '#d4edda', color: '#155724', label: 'Cavablandırıldı' },
+      };
+
+      function statusBadge(status) {
+        const s = STATUS_COLORS[status] || STATUS_COLORS.unread;
+        return `<span style="padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;background:${s.bg};color:${s.color}">${s.label}</span>`;
+      }
+
+      async function loadContacts() {
+        try {
+          const res = await fetch(`${API_URL}/contact`, { headers: getAuthHeaders() });
+          const data = await res.json();
+          document.getElementById('contactsTable').innerHTML = (data.data || [])
+            .map(
+              (c) => `
+              <tr style="${c.status === 'unread' ? 'font-weight:600' : ''}">
+                <td>${c.name || '-'}</td>
+                <td>${c.phone || '-'}</td>
+                <td style="white-space:nowrap;color:#718096;font-size:13px">${new Date(c.createdAt).toLocaleDateString()}</td>
+                <td>${statusBadge(c.status)}</td>
+                <td class="actions">
+                  <button class="btn btn-sm btn-primary" onclick="openMessage('${c._id}')">Info</button>
+                  <button class="btn btn-sm btn-danger"  onclick="deleteItem('contact', '${c._id}')">Sil</button>
+                </td>
+              </tr>`,
+            )
+            .join('');
+        } catch (err) {
+          showToast('Mesajlar yüklənmədi', 'error');
+        }
+      }
+
+      let currentMessageId = null;
+
+      async function openMessage(id) {
+        try {
+          const res = await fetch(`${API_URL}/contact/${id}`, { headers: getAuthHeaders() });
+          const data = await res.json();
+          if (!data.success) throw new Error(data.message);
+          const c = data.data;
+
+          currentMessageId = id;
+          document.getElementById('m_name').textContent = c.name || '-';
+          document.getElementById('m_email').textContent = c.email || '-';
+          document.getElementById('m_phone').textContent = c.phone || '-';
+          document.getElementById('m_message').textContent = c.message || '-';
+          document.getElementById('m_date').textContent = c.createdAt
+            ? new Date(c.createdAt).toLocaleString()
+            : '-';
+          document.getElementById('m_status').value = c.status || 'unread';
+          document.getElementById('m_delete_btn').onclick = () => {
+            closeMessageModal();
+            deleteItem('contact', id);
+          };
+
+          document.getElementById('messageModal').classList.add('active');
+        } catch (err) {
+          showToast('Mesaj yüklənmədi: ' + err.message, 'error');
+        }
+      }
+
+      function closeMessageModal() {
+        document.getElementById('messageModal').classList.remove('active');
+        currentMessageId = null;
+      }
+
+      async function saveMessageStatus() {
+        if (!currentMessageId) return;
+        const status = document.getElementById('m_status').value;
+        try {
+          const res = await fetch(`${API_URL}/contact/${currentMessageId}/status`, {
+            method: 'PUT',
+            headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status }),
+          });
+          const data = await res.json();
+          if (!data.success) throw new Error(data.message);
+          showToast('Status yeniləndi');
+          closeMessageModal();
+          loadContacts();
+        } catch (err) {
+          showToast('Xəta: ' + err.message, 'error');
+        }
+      }
+
+      // ── Hero Slider ──────────────────────────────────
+      async function loadHeroSlides() {
+        const container = document.getElementById('heroSlidesList');
+        if (!container) return;
+        container.style.display = 'block';
+        container.innerHTML = '<p style="color:#718096">Yüklənir...</p>';
+        try {
+          const res = await fetch(`${API_URL}/hero-slides/all`, { headers: getAuthHeaders() });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          const slides = Array.isArray(data.data) ? data.data : [];
+
+          if (!slides.length) {
+            container.innerHTML =
+              '<p style="color:#718096;padding:16px 0">Hələ heç bir şəkil yoxdur. "Şəkil əlavə et" düyməsini sıxın.</p>';
+            return;
+          }
+
+          container.style.display = 'grid';
+          container.innerHTML = slides
+            .map(
+              (s) => `
+            <div class="hero-slide-card" data-id="${s._id}" style="
+              border-radius:10px;overflow:hidden;
+              box-shadow:0 2px 8px rgba(0,0,0,0.1);
+              background:#fff;position:relative;">
+              <img src="${imgSrc(s.image)}" alt=""
+                style="width:100%;height:140px;object-fit:cover;display:block" />
+              <div style="padding:10px;display:flex;align-items:center;justify-content:space-between;gap:8px">
+                <span style="font-size:0.78rem;color:#718096">#${s.order + 1}</span>
+                <div style="display:flex;gap:6px">
+                  <button type="button" title="${s.active ? 'Deaktiv et' : 'Aktiv et'}"
+                    onclick="toggleHeroSlide('${s._id}', ${s.active})"
+                    style="border:none;background:${s.active ? '#c6f6d5' : '#fed7d7'};
+                      color:${s.active ? '#276749' : '#9b2c2c'};
+                      border-radius:6px;padding:4px 8px;cursor:pointer;font-size:0.78rem;font-weight:600">
+                    ${s.active ? 'Aktiv' : 'Deaktiv'}
+                  </button>
+                  <button type="button" title="Sil" onclick="deleteHeroSlide('${s._id}')"
+                    style="border:none;background:#fed7d7;color:#9b2c2c;
+                      border-radius:6px;padding:4px 8px;cursor:pointer;font-size:0.78rem;font-weight:600">
+                    Sil
+                  </button>
+                </div>
+              </div>
+            </div>`,
+            )
+            .join('');
+        } catch (err) {
+          console.error('[Hero Slides] Load error:', err);
+          container.style.display = 'block';
+          container.innerHTML = '<p style="color:#e53e3e">Yüklənmədi: ' + err.message + '</p>';
+        }
+      }
+
+      async function toggleHeroSlide(id, currentActive) {
+        try {
+          const fd = new FormData();
+          fd.append('active', String(!currentActive));
+          await fetch(`${API_URL}/hero-slides/${id}`, {
+            method: 'PUT',
+            headers: getAuthHeaders(),
+            body: fd,
+          });
+          loadHeroSlides();
+        } catch (err) {
+          showToast('Xəta baş verdi', 'error');
+        }
+      }
+
+      async function deleteHeroSlide(id) {
+        if (!confirm('Bu şəkili silmək istəyirsiniz?')) return;
+        try {
+          await fetch(`${API_URL}/hero-slides/${id}`, {
+            method: 'DELETE',
+            headers: getAuthHeaders(),
+          });
+          showToast('Şəkil silindi');
+          loadHeroSlides();
+        } catch (err) {
+          showToast('Xəta baş verdi', 'error');
+        }
+      }
+
+      // File input handler — initialized directly (not inside DOMContentLoaded)
+      (function initHeroSlideUpload() {
+        const heroInput = document.getElementById('heroSlideInput');
+        if (!heroInput) return;
+        heroInput.addEventListener('change', async () => {
+          const files = Array.from(heroInput.files);
+          if (!files.length) return;
+          let uploaded = 0;
+          for (const file of files) {
+            const fd = new FormData();
+            fd.append('image', file);
+            fd.append('uploadFor', 'hero');
+            try {
+              const res = await fetch(`${API_URL}/hero-slides`, {
+                method: 'POST',
+                headers: getAuthHeaders(),
+                body: fd,
+              });
+              const d = await res.json();
+              if (d.success) uploaded++;
+              else showToast(d.message || 'Xəta', 'error');
+            } catch (e) {
+              showToast('Upload xətası', 'error');
+            }
+          }
+          heroInput.value = '';
+          if (uploaded) {
+            showToast(`${uploaded} şəkil əlavə edildi`);
+            loadHeroSlides();
+          }
+        });
+      })();
+
+      // Modal
+      async function openModal(type, id = null, existingData = null, opts = {}) {
+        currentType = type;
+        editId = id;
+        branchModalLockCompany = !!opts.lockCompany;
+        const title = document.getElementById('modalTitle');
+        const fields = document.getElementById('formFields');
+        title.textContent = id
+          ? `Edit ${type.charAt(0).toUpperCase() + type.slice(1)}`
+          : `Add ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+
+        if (type === 'company') {
+          const nameAz = existingData?.name?.az || '';
+          const nameRu = existingData?.name?.ru || '';
+          const nameEn = existingData?.name?.en || '';
+          const descAz = existingData?.description?.az || '';
+          const descRu = existingData?.description?.ru || '';
+          const descEn = existingData?.description?.en || '';
+          const website = existingData?.website || '';
+
+          fields.innerHTML = `
+          <div class="form-group"><label>Name (AZ)</label><input type="text" name="nameAz" value="${nameAz}" required /></div>
+          <div class="form-group"><label>Name (RU)</label><input type="text" name="nameRu" value="${nameRu}" required /></div>
+          <div class="form-group"><label>Name (EN)</label><input type="text" name="nameEn" value="${nameEn}" required /></div>
+          <div class="form-group"><label>Description (AZ)</label><textarea name="descAz" rows="2" required>${descAz}</textarea></div>
+          <div class="form-group"><label>Description (RU)</label><textarea name="descRu" rows="2" required>${descRu}</textarea></div>
+          <div class="form-group"><label>Description (EN)</label><textarea name="descEn" rows="2" required>${descEn}</textarea></div>
+          <div class="form-group"><label>Website</label><input type="url" name="website" value="${website}" /></div>
+          <div class="form-group"><label>Logo</label><input type="file" name="logo" accept="image/*" /></div>
+        `;
+        } else if (type === 'branch') {
+          const companyId =
+            typeof existingData?.company === 'object'
+              ? existingData.company._id
+              : existingData?.company || opts.prefillCompanyId || '';
+          const companyOptions = companiesList
+            .map(
+              (c) =>
+                `<option value="${c._id}" ${companyId === c._id ? 'selected' : ''}>${c.name.az}</option>`,
+            )
+            .join('');
+          const nameAz = existingData?.name?.az || '';
+          const nameRu = existingData?.name?.ru || '';
+          const nameEn = existingData?.name?.en || '';
+          const addrAz = existingData?.address?.az || '';
+          const addrRu = existingData?.address?.ru || '';
+          const addrEn = existingData?.address?.en || '';
+          const existingPhones = existingData?.phones?.length
+            ? existingData.phones
+            : existingData?.phone
+              ? [{ number: existingData.phone, type: 'mobile' }]
+              : [];
+          const email = existingData?.email || '';
+          const hours = existingData?.workingHours || '09:00 - 18:00';
+          const mapLink = existingData?.mapLink || '';
+          const instagram = existingData?.social?.instagram || '';
+          const facebook  = existingData?.social?.facebook  || '';
+          const youtube   = existingData?.social?.youtube   || '';
+          const currentImages = Array.isArray(existingData?.images) ? existingData.images : [];
+
+          fields.innerHTML = `
+          <div class="form-group"><label>Company</label><select name="company" required>${companyOptions}</select></div>
+          <div class="form-group"><label>Name (AZ)</label><input type="text" name="nameAz" value="${nameAz}" required /></div>
+          <div class="form-group"><label>Name (RU)</label><input type="text" name="nameRu" value="${nameRu}" required /></div>
+          <div class="form-group"><label>Name (EN)</label><input type="text" name="nameEn" value="${nameEn}" required /></div>
+          <div class="form-group"><label>Address (AZ)</label><textarea name="addrAz" rows="2" required>${addrAz}</textarea></div>
+          <div class="form-group"><label>Address (RU)</label><textarea name="addrRu" rows="2" required>${addrRu}</textarea></div>
+          <div class="form-group"><label>Address (EN)</label><textarea name="addrEn" rows="2" required>${addrEn}</textarea></div>
+          <div class="form-group">
+            <label>Telefon nömrələri</label>
+            <div class="repeater" id="phoneRepeater"></div>
+            <button type="button" class="btn btn-sm" style="margin-top:8px" onclick="addBranchPhoneRow()">+ Nömrə əlavə et</button>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" name="email" value="${email}" required /></div>
+          <div class="form-group"><label>Working Hours</label><input type="text" name="workingHours" value="${hours}" /></div>
+          <div class="form-group"><label>Map Link</label><input type="url" name="mapLink" value="${mapLink}" /></div>
+          <div class="form-group">
+            <label>Sosial şəbəkələr</label>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <i class="fab fa-instagram" style="width:18px;color:#E4405F;font-size:16px"></i>
+                <input type="text" name="social[instagram]" value="${instagram}" placeholder="https://instagram.com/..." style="flex:1" />
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <i class="fab fa-facebook-f" style="width:18px;color:#1877F2;font-size:16px"></i>
+                <input type="text" name="social[facebook]" value="${facebook}" placeholder="https://facebook.com/..." style="flex:1" />
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <i class="fab fa-youtube" style="width:18px;color:#FF0000;font-size:16px"></i>
+                <input type="text" name="social[youtube]" value="${youtube}" placeholder="https://youtube.com/..." style="flex:1" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Images</label>
+            ${
+              currentImages.length > 0
+                ? `
+              <div style="margin-bottom:10px; display:grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap:8px;">
+                ${currentImages
+                  .map(
+                    (img, i) => `
+                  <div style="position:relative; border-radius:6px; overflow:hidden; aspect-ratio:1;">
+                    <img src="http://localhost:5000${img}" style="width:100%; height:100%; object-fit:cover;" alt="Branch image ${i + 1}" />
+                  </div>
+                `,
+                  )
+                  .join('')}
+              </div>
+              <small style="color:#666;">Current images (${currentImages.length})</small><br>
+            `
+                : ''
+            }
+            <input type="file" name="images" accept="image/*" multiple id="branchImagesInput" />
+            <small style="color:#666;">Upload new images to replace or add more</small>
+            <div id="branchImagePreview" style="margin-top:10px; display:grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap:8px;"></div>
+          </div>
+        `;
+
+          setTimeout(() => {
+            const companySelect = document.querySelector('#formFields select[name="company"]');
+            if (companySelect && branchModalLockCompany) companySelect.disabled = true;
+
+            // Populate phone rows
+            if (existingPhones.length > 0) {
+              existingPhones.forEach((p) => addBranchPhoneRow(p.number || '', p.type || 'mobile'));
+            } else {
+              addBranchPhoneRow();
+            }
+
+            // Add image preview for branch images
+            const branchImagesInput = document.getElementById('branchImagesInput');
+            const branchImagePreview = document.getElementById('branchImagePreview');
+
+            if (branchImagesInput) {
+              branchImagesInput.addEventListener('change', (e) => {
+                branchImagePreview.innerHTML = '';
+                const files = e.target.files;
+
+                for (let file of files) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.style.cssText =
+                      'width:100%; height:100%; object-fit:cover; border-radius:6px;';
+
+                    const container = document.createElement('div');
+                    container.style.cssText =
+                      'position:relative; border-radius:6px; overflow:hidden; aspect-ratio:1; border:2px solid #ddd;';
+                    container.appendChild(img);
+
+                    branchImagePreview.appendChild(container);
+                  };
+                  reader.readAsDataURL(file);
+                }
+                console.log('[Branch Images] Preview updated:', files.length, 'files');
+              });
+            }
+          }, 0);
+        } else if (type === 'doctor') {
+          const name = existingData?.name || '';
+          const surname = existingData?.surname || '';
+          const posAz = existingData?.position?.az || '';
+          const posRu = existingData?.position?.ru || '';
+          const posEn = existingData?.position?.en || '';
+          const bioAz = existingData?.bio?.az || '';
+          const bioRu = existingData?.bio?.ru || '';
+          const bioEn = existingData?.bio?.en || '';
+          const selCompanyId =
+            typeof existingData?.companyId === 'object'
+              ? existingData?.companyId?._id || ''
+              : existingData?.companyId || '';
+          const selBranchId =
+            typeof existingData?.branchId === 'object'
+              ? existingData?.branchId?._id || ''
+              : existingData?.branchId || '';
+          const currentImg = existingData?.image ? `${BASE_URL}${existingData.image}` : '';
+
+          const companyOptions = companiesList
+            .map(
+              (c) =>
+                `<option value="${c._id}" ${selCompanyId === String(c._id) ? 'selected' : ''}>${c.name?.az || 'Company'}</option>`,
+            )
+            .join('');
+
+          fields.innerHTML = `
+            <div class="form-group"><label>Ad / Name</label><input type="text" name="name" value="${name}" required /></div>
+            <div class="form-group"><label>Soyad / Surname</label><input type="text" name="surname" value="${surname}" /></div>
+            <div class="form-group"><label>Vəzifə AZ</label><input type="text" name="posAz" value="${posAz}" /></div>
+            <div class="form-group"><label>Vəzifə RU</label><input type="text" name="posRu" value="${posRu}" /></div>
+            <div class="form-group"><label>Position EN</label><input type="text" name="posEn" value="${posEn}" /></div>
+            <div class="form-group"><label>Bio AZ</label><textarea name="bioAz" rows="2">${bioAz}</textarea></div>
+            <div class="form-group"><label>Bio RU</label><textarea name="bioRu" rows="2">${bioRu}</textarea></div>
+            <div class="form-group"><label>Bio EN</label><textarea name="bioEn" rows="2">${bioEn}</textarea></div>
+            <div class="form-group">
+              <label>Şirkət / Company</label>
+              <select name="doctorCompany" id="doctorCompanySelect" onchange="loadDoctorBranchOptions()">
+                <option value="">Şirkət seç</option>${companyOptions}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Filial / Branch</label>
+              <select name="doctorBranch" id="doctorBranchSelect">
+                <option value="">Filial seç</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Foto / Photo</label>
+              ${currentImg ? `<div style="margin-bottom:8px"><img src="${currentImg}" width="70" height="70" style="border-radius:50%;object-fit:cover;border:2px solid #e2e8f0" /></div>` : ''}
+              <input type="file" name="image" accept="image/*" />
+            </div>
+          `;
+
+          setTimeout(async () => {
+            if (selCompanyId) await loadDoctorBranchOptions(selBranchId);
+          }, 0);
+        } else if (type === 'branchService') {
+          const nameAz = existingData?.name?.az || '';
+          const nameRu = existingData?.name?.ru || '';
+          const nameEn = existingData?.name?.en || '';
+          const selectedBranch =
+            typeof existingData?.branch === 'object'
+              ? existingData.branch._id
+              : existingData?.branch || '';
+          const selectedCompany =
+            existingData?.branch?.company?._id || existingData?.branch?.company || '';
+          const currentImage = existingData?.image ? `${BASE_URL}${existingData.image}` : '';
+
+          fields.innerHTML = `
+            <div class="form-group"><label>Şirkət</label>
+              <select id="bsModalCompanySelect" class="select" onchange="loadBsModalBranchOptions()">
+                <option value="">Şirkət seç</option>
+                ${companiesList.map((c) => `<option value="${c._id}">${c.name?.az || 'Company'}</option>`).join('')}
+              </select>
+            </div>
+            <div class="form-group"><label>Filial *</label>
+              <select name="branch" id="bsModalBranchSelect" required>
+                <option value="">Əvvəlcə şirkət seçin</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Ad (AZ) *</label><input type="text" name="nameAz" value="${nameAz}" required /></div>
+            <div class="form-group"><label>Ad (RU) *</label><input type="text" name="nameRu" value="${nameRu}" required /></div>
+            <div class="form-group"><label>Ad (EN) *</label><input type="text" name="nameEn" value="${nameEn}" required /></div>
+            <div class="form-group">
+              <label>Şəkil</label>
+              ${currentImage ? `<div style="margin-bottom:10px"><img id="currentImagePreview" src="${currentImage}" width="120" style="border-radius:6px; border:2px solid #ccc; object-fit:cover" alt="Current image" /></div>` : ''}
+              <input type="file" name="image" accept="image/*" id="imageInput" />
+              <canvas id="imagePreview" style="margin-top:10px; display:none; max-width:200px; border:2px solid #ddd; border-radius:6px; max-height:200px;"></canvas>
+            </div>
+          `;
+
+          setTimeout(async () => {
+            const compSel = document.getElementById('bsModalCompanySelect');
+            if (compSel && selectedCompany) compSel.value = selectedCompany;
+            await loadBsModalBranchOptions(selectedBranch);
+
+            const imageInput = document.querySelector('input[name="image"]');
+            const imagePreview = document.getElementById('imagePreview');
+            const currentPreview = document.getElementById('currentImagePreview');
+            if (imageInput) {
+              imageInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                      const canvas = imagePreview;
+                      canvas.width = 200;
+                      canvas.height = 150;
+                      const ctx = canvas.getContext('2d');
+                      ctx.clearRect(0, 0, 200, 150);
+                      const imgAspect = img.width / img.height;
+                      const canvasAspect = 200 / 150;
+                      let drawWidth, drawHeight, drawX, drawY;
+                      if (imgAspect > canvasAspect) {
+                        drawHeight = 150;
+                        drawWidth = 150 * imgAspect;
+                        drawX = (200 - drawWidth) / 2;
+                        drawY = 0;
+                      } else {
+                        drawWidth = 200;
+                        drawHeight = 200 / imgAspect;
+                        drawX = 0;
+                        drawY = (150 - drawHeight) / 2;
+                      }
+                      ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+                      canvas.style.display = 'block';
+                      if (currentPreview) currentPreview.style.display = 'none';
+                    };
+                    img.src = event.target.result;
+                  };
+                  reader.readAsDataURL(file);
+                }
+              });
+            }
+          }, 0);
+        } else if (type === 'leader') {
+          const name = existingData?.name || '';
+          const surname = existingData?.surname || '';
+          const posAz = existingData?.position?.az || '';
+          const posRu = existingData?.position?.ru || '';
+          const posEn = existingData?.position?.en || '';
+          const bioAz = existingData?.bio?.az || '';
+          const bioRu = existingData?.bio?.ru || '';
+          const bioEn = existingData?.bio?.en || '';
+          const leaderType = existingData?.type || 'global';
+          const leaderCompanyId =
+            typeof existingData?.companyId === 'object'
+              ? String(existingData?.companyId?._id || '')
+              : String(existingData?.companyId || '');
+          const currentPhoto = existingData?.photo ? `${BASE_URL}${existingData.photo}` : '';
+          const companyOptions = companiesList
+            .map(
+              (c) =>
+                `<option value="${c._id}" ${leaderCompanyId === c._id ? 'selected' : ''}>${c.name?.az || 'Company'}</option>`,
+            )
+            .join('');
+
+          fields.innerHTML = `
+            <div class="form-group"><label>Name / Ad</label><input type="text" name="name" value="${name}" required /></div>
+            <div class="form-group"><label>Surname / Soyad</label><input type="text" name="surname" value="${surname}" /></div>
+            <div class="form-group"><label>Position (AZ)</label><input type="text" name="posAz" value="${posAz}" required /></div>
+            <div class="form-group"><label>Position (RU)</label><input type="text" name="posRu" value="${posRu}" /></div>
+            <div class="form-group"><label>Position (EN)</label><input type="text" name="posEn" value="${posEn}" /></div>
+            <div class="form-group"><label>Bio (AZ)</label><textarea name="bioAz" rows="3">${bioAz}</textarea></div>
+            <div class="form-group"><label>Bio (RU)</label><textarea name="bioRu" rows="3">${bioRu}</textarea></div>
+            <div class="form-group"><label>Bio (EN)</label><textarea name="bioEn" rows="3">${bioEn}</textarea></div>
+
+            <div class="form-group">
+              <label>Növ / Type</label>
+              <select name="leaderType" id="leaderTypeSelect" onchange="toggleLeaderCompanySelect()">
+                <option value="global" ${leaderType === 'global' ? 'selected' : ''}>Ümumi (Global)</option>
+                <option value="company" ${leaderType === 'company' ? 'selected' : ''}>Şirkət</option>
+              </select>
+            </div>
+            <div class="form-group" id="leaderCompanyGroup" style="display:${leaderType === 'company' ? '' : 'none'}">
+              <label>Şirkət / Company</label>
+              <select id="leaderCompanySelect">
+                <option value="">Şirkət seç</option>
+                ${companyOptions}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Photo / Foto</label>
+              ${currentPhoto ? `<div style="margin-bottom:10px"><img id="currentPhotoPreview" src="${currentPhoto}" width="80" style="border-radius:50%; border:2px solid #ccc; object-fit:cover" alt="Current photo" /></div>` : ''}
+              <input type="file" name="photo" accept="image/*" id="photoInput" />
+              <canvas id="photoPreview" style="margin-top:10px; display:none; max-width:150px; border:2px solid #ddd; border-radius:50%; max-height:150px; width:150px; height:150px"></canvas>
+            </div>
+          `;
+
+          // Add event listener for photo preview after form is rendered
+          setTimeout(() => {
+            const photoInput = document.querySelector('input[name="photo"]');
+            const photoPreview = document.getElementById('photoPreview');
+            const currentPreview = document.getElementById('currentPhotoPreview');
+
+            if (photoInput) {
+              photoInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    const img = new Image();
+                    img.onload = () => {
+                      const canvas = photoPreview;
+                      canvas.width = 150;
+                      canvas.height = 150;
+                      const ctx = canvas.getContext('2d');
+                      ctx.clearRect(0, 0, 150, 150);
+                      ctx.beginPath();
+                      ctx.arc(75, 75, 75, 0, Math.PI * 2);
+                      ctx.clip();
+                      ctx.drawImage(img, 0, 0, 150, 150);
+
+                      canvas.style.display = 'block';
+                      if (currentPreview) currentPreview.style.display = 'none';
+                    };
+                    img.src = event.target.result;
+                  };
+                  reader.readAsDataURL(file);
+                  console.log('Photo preview loaded:', file.name);
+                }
+              });
+              console.log('[Leadership Form] Photo input listener attached');
+            }
+          }, 100);
+        } else if (type === 'news') {
+          const titleAz = existingData?.title?.az || '';
+          const titleRu = existingData?.title?.ru || '';
+          const titleEn = existingData?.title?.en || '';
+          const contentAz = existingData?.content?.az || '';
+          const contentRu = existingData?.content?.ru || '';
+          const contentEn = existingData?.content?.en || '';
+          const date = existingData?.date
+            ? new Date(existingData.date).toISOString().slice(0, 10)
+            : '';
+          const existingImages = (existingData?.images || [])
+            .map(
+              (p) =>
+                `<img src="${imgSrc(p)}" width="70" height="54" style="border-radius:8px;object-fit:cover;border:1px solid #e2e8f0" />`,
+            )
+            .join('');
+
+          fields.innerHTML = `
+          <div class="form-group"><label>Title (AZ)</label><input type="text" name="titleAz" value="${titleAz}" required /></div>
+          <div class="form-group"><label>Title (RU)</label><input type="text" name="titleRu" value="${titleRu}" required /></div>
+          <div class="form-group"><label>Title (EN)</label><input type="text" name="titleEn" value="${titleEn}" required /></div>
+          <div class="form-group"><label>Content (AZ)</label><textarea name="contentAz" rows="4" required>${contentAz}</textarea></div>
+          <div class="form-group"><label>Content (RU)</label><textarea name="contentRu" rows="4" required>${contentRu}</textarea></div>
+          <div class="form-group"><label>Content (EN)</label><textarea name="contentEn" rows="4" required>${contentEn}</textarea></div>
+          <div class="form-group"><label>Date</label><input type="date" name="date" value="${date}" /></div>
+          ${
+            existingImages
+              ? `<div class="form-group"><label>Existing Images</label><div style="display:flex;gap:10px;flex-wrap:wrap">${existingImages}</div></div>`
+              : ''
+          }
+          <div class="form-group"><label>Images (multiple)</label><input type="file" name="images" accept="image/*" multiple /></div>
+        `;
+        } else if (type === 'gallery') {
+          const titleVal = existingData?.title || '';
+          const date = existingData?.date
+            ? new Date(existingData.date).toISOString().slice(0, 10)
+            : '';
+          const itemType = existingData?.type || 'image';
+          const videoUrl = existingData?.videoUrl || '';
+
+          // Collect existing images (new array field + legacy single field)
+          const existingImgs = (() => {
+            const arr =
+              Array.isArray(existingData?.images) && existingData.images.length
+                ? existingData.images
+                : existingData?.image
+                  ? [existingData.image]
+                  : [];
+            return arr;
+          })();
+          const existingImagesHtml = existingImgs.length
+            ? `<div class="form-group">
+                <label>Mövcud şəkillər</label>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px" id="existingImgsContainer">
+                  ${existingImgs
+                    .map(
+                      (src) => `
+                    <div style="position:relative;display:inline-block">
+                      <img src="${imgSrc(src)}" width="90" height="70" style="border-radius:8px;object-fit:cover;border:1px solid #e2e8f0" />
+                      <button type="button" onclick="removeGalleryImg(this,'${src}')"
+                        style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center">×</button>
+                    </div>`,
+                    )
+                    .join('')}
+                </div>
+                <input type="hidden" name="removeImages" id="removeImagesInput" value="" />
+              </div>`
+            : '';
+
+          fields.innerHTML = `
+          <div class="form-group">
+            <label>Növ (Type)</label>
+            <select name="galleryType" id="galleryTypeSelect" onchange="toggleGalleryType(this.value)">
+              <option value="image" ${itemType === 'image' ? 'selected' : ''}>Şəkil (Image)</option>
+              <option value="video" ${itemType === 'video' ? 'selected' : ''}>Video Link</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Title</label><input type="text" name="title" value="${titleVal}" placeholder="..." /></div>
+          <div class="form-group"><label>Date</label><input type="date" name="date" value="${date}" /></div>
+          <div id="galleryImageGroup">
+            ${existingImagesHtml}
+            <div class="form-group">
+              <label>${id ? 'Yeni şəkillər əlavə et' : 'Şəkillər (bir neçə seçə bilərsiniz)'}</label>
+              <input type="file" name="images" accept="image/*" multiple />
+            </div>
+          </div>
+          <div id="galleryVideoGroup" style="display:${itemType === 'video' ? 'block' : 'none'}">
+            <div class="form-group"><label>Video URL (YouTube və ya digər)</label><input type="url" name="videoUrl" value="${videoUrl}" placeholder="https://youtube.com/watch?v=..." /></div>
+          </div>
+        `;
+          setTimeout(() => toggleGalleryType(itemType), 0);
+        } else if (type === 'media') {
+          const titleAz = existingData?.title?.az || '';
+          const titleRu = existingData?.title?.ru || '';
+          const titleEn = existingData?.title?.en || '';
+          const contentAz = existingData?.content?.az || '';
+          const contentRu = existingData?.content?.ru || '';
+          const contentEn = existingData?.content?.en || '';
+
+          fields.innerHTML = `
+          <div class="form-group"><label>Title (AZ)</label><input type="text" name="titleAz" value="${titleAz}" required /></div>
+          <div class="form-group"><label>Title (RU)</label><input type="text" name="titleRu" value="${titleRu}" required /></div>
+          <div class="form-group"><label>Title (EN)</label><input type="text" name="titleEn" value="${titleEn}" required /></div>
+          <div class="form-group"><label>Content (AZ)</label><textarea name="contentAz" rows="4" required>${contentAz}</textarea></div>
+          <div class="form-group"><label>Content (RU)</label><textarea name="contentRu" rows="4" required>${contentRu}</textarea></div>
+          <div class="form-group"><label>Content (EN)</label><textarea name="contentEn" rows="4" required>${contentEn}</textarea></div>
+          <div class="form-group"><label>Image</label><input type="file" name="image" accept="image/*" /></div>
+        `;
+        }
+
+        document.getElementById('formModal').classList.add('active');
+      }
+
+      function removeGalleryImg(btn, src) {
+        const input = document.getElementById('removeImagesInput');
+        if (!input) return;
+        const current = input.value ? input.value.split(',') : [];
+        if (!current.includes(src)) current.push(src);
+        input.value = current.join(',');
+        btn.parentElement.remove();
+      }
+
+      function toggleGalleryType(val) {
+        const imgGroup = document.getElementById('galleryImageGroup');
+        const vidGroup = document.getElementById('galleryVideoGroup');
+        if (!imgGroup || !vidGroup) return;
+        if (val === 'video') {
+          imgGroup.style.display = 'none';
+          vidGroup.style.display = 'block';
+        } else {
+          imgGroup.style.display = 'block';
+          vidGroup.style.display = 'none';
+        }
+      }
+
+      function closeModal() {
+        document.getElementById('formModal').classList.remove('active');
+        editId = null;
+      }
+
+      // Edit item - load data first
+      async function editItem(type, id) {
+        const endpoint =
+          type === 'company'
+            ? 'companies'
+            : type === 'branch'
+              ? 'branches'
+              : type === 'doctor'
+                ? 'doctors'
+                : type === 'branchService'
+                  ? 'branch-services'
+                  : type === 'leader'
+                    ? 'leadership'
+                    : type === 'news'
+                      ? 'news'
+                      : type === 'gallery'
+                        ? 'gallery'
+                        : 'media';
+        try {
+          const res = await fetch(`${API_URL}/${endpoint}/${id}`);
+          const data = await res.json();
+          if (data.success) {
+            openModal(type, id, data.data);
+          } else {
+            showToast('Failed to load item', 'error');
+          }
+        } catch (err) {
+          showToast('Failed to load item', 'error');
+        }
+      }
+
+      // Form submit
+      document.getElementById('itemForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+
+        // Build nested structure for API with FormData
+        const fd = new FormData();
+        let hasFile = false;
+
+        try {
+          if (currentType === 'company') {
+            // Validate required fields
+            if (!form.nameAz?.value) throw new Error('Azərbaycan adı tələb olunur');
+            if (!form.nameRu?.value) throw new Error('Rus adı tələb olunur');
+            if (!form.nameEn?.value) throw new Error('İngilis adı tələb olunur');
+
+            fd.append('name[az]', form.nameAz.value);
+            fd.append('name[ru]', form.nameRu.value);
+            fd.append('name[en]', form.nameEn.value);
+            fd.append('description[az]', form.descAz?.value || '');
+            fd.append('description[ru]', form.descRu?.value || '');
+            fd.append('description[en]', form.descEn?.value || '');
+            fd.append('website', form.website?.value || '');
+
+            if (form.logo?.files?.[0]) {
+              fd.append('logo', form.logo.files[0]);
+              hasFile = true;
+              console.log('Company logo attached:', form.logo.files[0].name);
+            }
+          } else if (currentType === 'branch') {
+            // Validate branch fields
+            if (!form.nameAz?.value) throw new Error('Azərbaycan adı tələb olunur');
+            if (!form.company?.value) throw new Error('Şirkət seçilməlidir');
+
+            fd.append('uploadFor', 'branch');
+            fd.append('company', form.company.value);
+            fd.append('name[az]', form.nameAz.value);
+            fd.append('name[ru]', form.nameRu?.value || '');
+            fd.append('name[en]', form.nameEn?.value || '');
+            fd.append('address[az]', form.addrAz?.value || '');
+            fd.append('address[ru]', form.addrRu?.value || '');
+            fd.append('address[en]', form.addrEn?.value || '');
+
+            const phones = Array.from(document.querySelectorAll('#phoneRepeater .phone-row'))
+              .map((row) => ({
+                number: row.querySelector('.phone-number')?.value?.trim() || '',
+                type: row.querySelector('.phone-type')?.value || 'mobile',
+              }))
+              .filter((p) => p.number);
+            fd.append('phones', JSON.stringify(phones));
+
+            fd.append('email', form.email?.value || '');
+            fd.append('workingHours', form.workingHours?.value || '');
+            fd.append('mapLink', form.mapLink?.value || '');
+            fd.append('social[instagram]', document.querySelector('#formFields [name="social[instagram]"]')?.value || '');
+            fd.append('social[facebook]',  document.querySelector('#formFields [name="social[facebook]"]')?.value  || '');
+            fd.append('social[youtube]',   document.querySelector('#formFields [name="social[youtube]"]')?.value   || '');
+
+            if (form.images?.files?.length > 0) {
+              for (let file of form.images.files) {
+                fd.append('images', file);
+              }
+              hasFile = true;
+              console.log('Branch images attached:', form.images.files.length);
+            }
+          } else if (currentType === 'leader') {
+            if (!form.name?.value) throw new Error('Ad tələb olunur');
+            if (!form.posAz?.value) throw new Error('Azərbaycan vəzifəsi tələb olunur');
+            const selectedLeaderType =
+              document.getElementById('leaderTypeSelect')?.value || 'global';
+            const selectedCompanyId = document.getElementById('leaderCompanySelect')?.value || '';
+            if (selectedLeaderType === 'company' && !selectedCompanyId) {
+              throw new Error('Şirkət seçilməlidir');
+            }
+
+            fd.append('name', form.name.value);
+            fd.append('surname', form.surname?.value || '');
+            fd.append('position[az]', form.posAz.value);
+            fd.append('position[ru]', form.posRu?.value || '');
+            fd.append('position[en]', form.posEn?.value || '');
+            fd.append('bio[az]', form.bioAz?.value || '');
+            fd.append('bio[ru]', form.bioRu?.value || '');
+            fd.append('bio[en]', form.bioEn?.value || '');
+            fd.append('type', selectedLeaderType);
+            fd.append('companyId', selectedLeaderType === 'company' ? selectedCompanyId : '');
+
+            if (form.photo?.files?.[0]) {
+              fd.append('photo', form.photo.files[0]);
+              hasFile = true;
+              console.log('Leadership photo attached:', form.photo.files[0].name);
+            }
+          } else if (currentType === 'media') {
+            // Validate media fields
+            if (!form.titleAz?.value) throw new Error('Azərbaycan başlığı tələb olunur');
+            if (!form.titleRu?.value) throw new Error('Rus başlığı tələb olunur');
+            if (!form.titleEn?.value) throw new Error('İngilis başlığı tələb olunur');
+
+            fd.append('title[az]', form.titleAz.value);
+            fd.append('title[ru]', form.titleRu.value);
+            fd.append('title[en]', form.titleEn.value);
+            fd.append('content[az]', form.contentAz?.value || '');
+            fd.append('content[ru]', form.contentRu?.value || '');
+            fd.append('content[en]', form.contentEn?.value || '');
+
+            if (form.image?.files?.[0]) {
+              fd.append('image', form.image.files[0]);
+              hasFile = true;
+              console.log('Media image attached:', form.image.files[0].name);
+            }
+          } else if (currentType === 'news') {
+            if (!form.titleAz?.value) throw new Error('AZ title is required');
+            if (!form.titleRu?.value) throw new Error('RU title is required');
+            if (!form.titleEn?.value) throw new Error('EN title is required');
+            if (!form.contentAz?.value) throw new Error('AZ content is required');
+            if (!form.contentRu?.value) throw new Error('RU content is required');
+            if (!form.contentEn?.value) throw new Error('EN content is required');
+
+            fd.append('uploadFor', 'news');
+            fd.append('title[az]', form.titleAz.value);
+            fd.append('title[ru]', form.titleRu.value);
+            fd.append('title[en]', form.titleEn.value);
+            fd.append('content[az]', form.contentAz.value);
+            fd.append('content[ru]', form.contentRu.value);
+            fd.append('content[en]', form.contentEn.value);
+            fd.append('date', form.date?.value || '');
+
+            if (form.images?.files?.length > 0) {
+              for (let file of form.images.files) {
+                fd.append('images', file);
+              }
+              hasFile = true;
+              console.log('News images attached:', form.images.files.length);
+            }
+          } else if (currentType === 'gallery') {
+            const galleryTypeEl = form.elements['galleryType'];
+            const galleryType = galleryTypeEl ? galleryTypeEl.value : 'image';
+            fd.append('uploadFor', 'gallery');
+            fd.append('type', galleryType);
+            fd.append('title', form.elements['title']?.value || '');
+            fd.append('date', form.elements['date']?.value || '');
+
+            if (galleryType === 'video') {
+              const videoUrlVal = form.elements['videoUrl']?.value || '';
+              if (!videoUrlVal) throw new Error('Video URL daxil edin');
+              fd.append('videoUrl', videoUrlVal);
+            } else {
+              const removeVal = form.elements['removeImages']?.value || '';
+              if (removeVal) fd.append('removeImages', removeVal);
+
+              const imageFiles = form.elements['images']?.files || [];
+              if (!editId && !imageFiles.length) throw new Error('Ən azı bir şəkil seçin');
+              for (const file of imageFiles) {
+                fd.append('images', file);
+              }
+              if (imageFiles.length) hasFile = true;
+            }
+          } else if (currentType === 'doctor') {
+            if (!form.name?.value) throw new Error('Ad tələb olunur');
+            const docCompany = document.getElementById('doctorCompanySelect')?.value || '';
+            const docBranch = document.getElementById('doctorBranchSelect')?.value || '';
+            if (!docCompany) throw new Error('Şirkət seçilməlidir');
+            if (!docBranch) throw new Error('Filial seçilməlidir');
+
+            fd.append('uploadFor', 'doctor');
+            fd.append('name', form.name.value.trim());
+            fd.append('surname', form.surname?.value?.trim() || '');
+            fd.append('position[az]', form.posAz?.value || '');
+            fd.append('position[ru]', form.posRu?.value || '');
+            fd.append('position[en]', form.posEn?.value || '');
+            fd.append('bio[az]', form.bioAz?.value || '');
+            fd.append('bio[ru]', form.bioRu?.value || '');
+            fd.append('bio[en]', form.bioEn?.value || '');
+            fd.append('companyId', docCompany);
+            fd.append('branchId', docBranch);
+
+            if (form.image?.files?.[0]) {
+              fd.append('image', form.image.files[0]);
+              hasFile = true;
+            }
+          } else if (currentType === 'branchService') {
+            // Validate branch service fields
+            if (!form.branch?.value) throw new Error('Şöbə seçilməlidir');
+            if (!form.nameAz?.value) throw new Error('Azərbaycan adı tələb olunur');
+
+            fd.append('uploadFor', 'branchService');
+            fd.append('branch', form.branch.value);
+            fd.append('name[az]', form.nameAz.value);
+            fd.append('name[ru]', form.nameRu?.value || '');
+            fd.append('name[en]', form.nameEn?.value || '');
+
+            if (form.image?.files?.[0]) {
+              fd.append('image', form.image.files[0]);
+              hasFile = true;
+              console.log('Service image attached:', form.image.files[0].name);
+            }
+          }
+
+          const endpoint =
+            currentType === 'company'
+              ? 'companies'
+              : currentType === 'branch'
+                ? 'branches'
+                : currentType === 'doctor'
+                  ? 'doctors'
+                  : currentType === 'branchService'
+                    ? 'branch-services'
+                    : currentType === 'leader'
+                      ? 'leadership'
+                      : currentType === 'news'
+                        ? 'news'
+                        : currentType === 'gallery'
+                          ? 'gallery'
+                          : 'media';
+          const method = editId ? 'PUT' : 'POST';
+          const url = editId ? `${API_URL}/${endpoint}/${editId}` : `${API_URL}/${endpoint}`;
+
+          console.log(`Submitting ${method} request to ${url}`, { hasFile, editId });
+
+          const res = await fetch(url, {
+            method,
+            headers: { Authorization: `Bearer ${token}` },
+            body: fd,
+          });
+
+          const result = await res.json();
+          console.log('API Response:', result);
+
+          if (result.success) {
+            showToast(editId ? 'Uğurla yeniləndi!' : 'Uğurla yaradıldı!');
+            closeModal();
+            // Reload data after successful save
+            if (currentType === 'company') await loadCompanies();
+            else if (currentType === 'branch') await loadBranches();
+            else if (currentType === 'doctor') await loadDoctors();
+            else if (currentType === 'branchService') await loadBranchServices();
+            else if (currentType === 'leader') await loadLeadership();
+            else if (currentType === 'news') await loadNews();
+            else if (currentType === 'gallery') await loadGallery();
+          } else {
+            const errorMsg = result.message || result.error || 'Xəta baş verdi';
+            console.error('Save failed:', errorMsg);
+            showToast(errorMsg, 'error');
+          }
+        } catch (err) {
+          console.error('Form submission error:', err);
+          showToast('Xəta: ' + err.message, 'error');
+        }
+      });
+
+      // Delete item
+      async function deleteItem(endpoint, id) {
+        if (!confirm('Are you sure you want to delete this item?')) return;
+
+        try {
+          const res = await fetch(`${API_URL}/${endpoint}/${id}`, {
+            method: 'DELETE',
+            headers: getAuthHeaders(),
+          });
+          const data = await res.json();
+          if (data.success) {
+            showToast('Deleted successfully!');
+            if (endpoint === 'companies') loadCompanies();
+            else if (endpoint === 'branches') loadBranches();
+            else if (endpoint === 'doctors') loadDoctors();
+            else if (endpoint === 'branch-services') loadBranchServices();
+            else if (endpoint === 'leadership') loadLeadership();
+            else if (endpoint === 'news') loadNews();
+            else if (endpoint === 'gallery') loadGallery();
+            else if (endpoint === 'contact') loadContacts();
+          } else {
+            showToast(data.message, 'error');
+          }
+        } catch (err) {
+          showToast('Failed to delete', 'error');
+        }
+      }
+
+      // Close modals on backdrop click
+      document.getElementById('formModal').addEventListener('click', (e) => {
+        if (e.target.id === 'formModal') closeModal();
+      });
+      document.getElementById('messageModal').addEventListener('click', (e) => {
+        if (e.target.id === 'messageModal') closeMessageModal();
+      });
+    </script>
+  </body>
+</html>
